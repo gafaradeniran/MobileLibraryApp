@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/menupages/home.dart';
+import 'package:mylibrary/menupages/library.dart';
+import 'package:mylibrary/screens/homeScreen.dart';
 import 'package:mylibrary/screens/login.dart';
 import 'package:mylibrary/styles.dart';
 
@@ -19,7 +20,6 @@ class _RegistrationState extends State<Registration> {
     'Science',
     'Art',
     'Commercial',
-    'Technical'
   ];
   String? selectedValue;
   bool agree = false;
@@ -53,26 +53,18 @@ class _RegistrationState extends State<Registration> {
                 height: 215,
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/mlib1.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                   color: Colors.purple,
                   borderRadius:
                       BorderRadius.only(bottomLeft: Radius.circular(100)),
                 ),
-                child: Column(
-                  children: [
-                    Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Hello!\n Signup to\n get started',
-                            style: regStyle)),
-                    const Align(
-                      alignment: Alignment.center,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage:
-                            AssetImage('assets/libraryAppImage.png'),
-                      ),
-                    ),
-                  ],
-                ),
+                child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Text('Hello!\n Signup to\n get started',
+                        style: regStyle)),
               ),
               const SizedBox(height: 20),
               Form(
@@ -93,7 +85,7 @@ class _RegistrationState extends State<Registration> {
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)),
                           hintText: 'full name',
-                          labelText: 'full name',
+                          labelText: 'Full name',
                           prefixIcon:
                               const Icon(Icons.person, color: Colors.black),
                         ),
@@ -155,7 +147,7 @@ class _RegistrationState extends State<Registration> {
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)),
                           hintText: 'email address',
-                          labelText: 'email',
+                          labelText: 'E-mail',
                           prefixIcon: const Icon(Icons.email_outlined,
                               color: Colors.black),
                         ),
@@ -184,7 +176,7 @@ class _RegistrationState extends State<Registration> {
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             hintText: 'passwords',
-                            labelText: 'password',
+                            labelText: 'Password',
                             prefixIcon:
                                 const Icon(Icons.lock, color: Colors.black),
                           ),
@@ -231,6 +223,10 @@ class _RegistrationState extends State<Registration> {
                             //     const SnackBar(content: Text('Processing Data')));
                             debugPrint(
                                 'Registration Successful!!! ${_email!.text} - ${_password!.text}');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const ParentScreen()));
                           }
                         },
                       ),

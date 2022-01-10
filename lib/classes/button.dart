@@ -13,4 +13,3 @@ Widget myButtons(String text, final VoidCallback onPressed) {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
   );
 }
-

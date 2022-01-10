@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
 import 'package:mylibrary/classes/onboarding.dart';
+import 'package:mylibrary/screens/login.dart';
 import 'package:mylibrary/screens/register.dart';
 import 'package:mylibrary/styles.dart';
 
@@ -68,8 +69,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   ),
                                 )),
                       ),
-                      // const SizedBox(height: 30),
-                    ],
+                      ],
                   ),
                 ),
               ),
@@ -78,14 +78,35 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       alignment: Alignment.bottomCenter,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: myButtons(
-                          'GetStarted',
-                          () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const Registration()));
-                          },
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: myButtons(
+                                'SIGN UP',
+                                () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) =>
+                                              const Registration()));
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              flex: 1,
+                              child: myButtons(
+                                'SIGN IN',
+                                () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const Login()));
+                                },
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     )

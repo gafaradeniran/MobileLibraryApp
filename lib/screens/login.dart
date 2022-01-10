@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
+import 'package:mylibrary/menupages/library.dart';
+import 'package:mylibrary/screens/homeScreen.dart';
 import 'package:mylibrary/screens/register.dart';
 import 'package:mylibrary/styles.dart';
 
@@ -65,13 +67,13 @@ class _LoginState extends State<Login> {
                             children: [
                               Text(
                                 'Sign In',
-                                style: regStyle,
+                                style: signStyle,
                               ),
-                              const SizedBox(height: 12),
+                              const SizedBox(height: 13),
                               const Text(
                                 'Get unrestricted access to quality learning materials to spice up your academics',
                                 style: TextStyle(
-                                    fontSize: 16, color: Colors.white),
+                                    fontSize: 14, color: Colors.white),
                               ),
                             ],
                           ),
@@ -107,28 +109,45 @@ class _LoginState extends State<Login> {
                                 ),
                                 fillColor: Colors.white,
                               ),
-                              validator: (value) {},
+                              validator: (value) {
+                                Pattern epattern =
+                                    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                                RegExp regex = RegExp(epattern.toString());
+                                if (!regex.hasMatch(value!)) {
+                                  return 'Invalid e-mail address';
+                                } else {
+                                  return null;
+                                }
+                              },
                             ),
                             const SizedBox(height: 20),
                             TextFormField(
-                              controller: _password,
-                              autofocus: false,
-                              decoration: InputDecoration(
-                                hintText: 'Password',
-                                hintStyle:
-                                    const TextStyle(color: Colors.purple),
-                                labelText: 'Password',
-                                prefixIcon: const Icon(Icons.lock, size: 25),
-                                labelStyle:
-                                    const TextStyle(color: Colors.black),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10.0),
+                                controller: _password,
+                                autofocus: false,
+                                decoration: InputDecoration(
+                                  hintText: 'Password',
+                                  hintStyle:
+                                      const TextStyle(color: Colors.purple),
+                                  labelText: 'Password',
+                                  prefixIcon: const Icon(Icons.lock, size: 25),
+                                  labelStyle:
+                                      const TextStyle(color: Colors.black),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  fillColor: Colors.white,
                                 ),
-                                fillColor: Colors.white,
-                              ),
-                            ),
+                                validator: (value) {
+                                  Pattern pattern =
+                                      r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+                                  RegExp regex = RegExp(pattern.toString());
+                                  if (!regex.hasMatch(value!)) {
+                                    return 'Minimum of 8 chars, 1 letter, 1 number and 1 special char';
+                                  }
+                                  return null;
+                                }),
                             const SizedBox(height: 8),
                             const Align(
                               alignment: Alignment.centerRight,
@@ -148,7 +167,10 @@ class _LoginState extends State<Login> {
                                 if (_formKey.currentState!.validate()) {
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //     const SnackBar(content: Text('Processing Data')));
-                                  debugPrint('Registration Successful!!!');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => const ParentScreen()));
                                 }
                               },
                             ),
