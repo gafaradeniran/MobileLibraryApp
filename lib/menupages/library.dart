@@ -5,6 +5,7 @@ import 'package:mylibrary/classes/allBooks.dart';
 import 'package:mylibrary/classes/commBooks.dart';
 import 'package:mylibrary/classes/generalBooks.dart';
 import 'package:mylibrary/classes/scienceBooks.dart';
+import 'package:mylibrary/classes/searchWidget.dart';
 import 'package:mylibrary/menupages/dashboard.dart';
 import 'package:mylibrary/menupages/favorite.dart';
 
@@ -66,7 +67,11 @@ class _LibraryBooksState extends State<LibraryBooks>
           ),
           actions: [
             IconButton(
-                onPressed: () {}, icon: const Icon(Icons.search_outlined)),
+                onPressed: () {
+                  // Navigator.push(context,
+                  //     MaterialPageRoute(builder: (_) => const SearchField()));
+                },
+                icon: const Icon(Icons.search_outlined)),
             const CircleAvatar(
                 radius: 18, backgroundImage: AssetImage('assets/appLogo.png')),
             const SizedBox(width: 12),
@@ -115,8 +120,8 @@ class _LibraryBooksState extends State<LibraryBooks>
                       AllBooks(),
                       GeneralBooks(),
                       ScienceBooks(),
-                      CommercialBooks(),
                       ArtBooks(),
+                      CommercialBooks(),
                     ],
                   ),
                 )),

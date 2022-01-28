@@ -23,6 +23,18 @@ class _ScienceBooksState extends State<ScienceBooks> {
             onTap: () {
               setState(() {
                 selectedMenu = index;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => InfoPage(
+                              index: index,
+                              author: scienceBooks[index].author,
+                              bookTitle: scienceBooks[index].bookTitle,
+                              description: scienceBooks[index].description,
+                              img: scienceBooks[index].img,
+                              pages: scienceBooks[index].pages,
+                              rating: scienceBooks[index].rating,
+                            )));
               });
             },
             child: Column(
@@ -49,8 +61,19 @@ class _ScienceBooksState extends State<ScienceBooks> {
                   ),
                   trailing: IconButton(
                     onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (_) => const InfoPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) => InfoPage(
+                                    index: index,
+                                    author: scienceBooks[index].author,
+                                    bookTitle: scienceBooks[index].bookTitle,
+                                    description:
+                                        scienceBooks[index].description,
+                                    img: scienceBooks[index].img,
+                                    pages: scienceBooks[index].pages,
+                                    rating: scienceBooks[index].rating,
+                                  )));
                     },
                     icon: const Icon(
                       Icons.navigate_next,

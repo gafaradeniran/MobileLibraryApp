@@ -23,6 +23,18 @@ class _CommercialBooksState extends State<CommercialBooks> {
           onTap: () {
             setState(() {
               selectedMenu = index;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => InfoPage(
+                            index: index,
+                            author: comBooks[index].author,
+                            bookTitle: comBooks[index].bookTitle,
+                            description: comBooks[index].description,
+                            img: comBooks[index].img,
+                            pages: comBooks[index].pages,
+                            rating: comBooks[index].rating,
+                          )));
             });
           },
           child: Column(
@@ -49,8 +61,18 @@ class _CommercialBooksState extends State<CommercialBooks> {
                 ),
                 trailing: IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const InfoPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => InfoPage(
+                                  index: index,
+                                  author: comBooks[index].author,
+                                  bookTitle: comBooks[index].bookTitle,
+                                  description: comBooks[index].description,
+                                  img: comBooks[index].img,
+                                  pages: comBooks[index].pages,
+                                  rating: comBooks[index].rating,
+                                )));
                   },
                   icon: const Icon(
                     Icons.navigate_next,

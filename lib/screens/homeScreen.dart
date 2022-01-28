@@ -26,7 +26,7 @@ class _ParentScreenState extends State<ParentScreen> {
     Icons.library_books_outlined,
     Icons.shopping_cart_outlined,
     Icons.favorite,
-    Icons.shopping_cart,
+    Icons.person,
   ];
   final List<String> labels = ['Home', 'Library', 'Shop', 'Favourites', 'Dashboard'];
   @override
@@ -61,7 +61,7 @@ class _ParentScreenState extends State<ParentScreen> {
                       margin: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         color: currentIndex == index
-                            ? const Color(0xffBA9191)
+                            ? Colors.purple[500]
                             : Colors.white,
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -69,11 +69,11 @@ class _ParentScreenState extends State<ParentScreen> {
                         children: [
                           Icon(
                             icons[index],
-                            color: const Color(0xffE0B0AC),
+                            color: Colors.purple[300],
                           ),
                           const SizedBox(width: 5),
                           currentIndex == index
-                              ? Text(labels[index])
+                              ? Text(labels[index], style: TextStyle(color: Colors.white, fontSize: 15),)
                               : const Center(),
                         ],
                       ),

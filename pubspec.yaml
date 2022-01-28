@@ -37,6 +37,9 @@ dependencies:
   google_fonts: ^2.1.0
   font_awesome_flutter: ^8.10.0
   flutter_rating_bar: ^4.0.0
+  carousel_slider: ^4.0.0
+  flutter_staggered_grid_view: ^0.3.3
+  transparent_image: ^2.0.0
   
 
 dev_dependencies:
@@ -68,6 +71,7 @@ flutter:
     - assets/commercial/
     - assets/science/
     - assets/general/
+    - assets/bg/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

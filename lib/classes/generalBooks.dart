@@ -23,6 +23,18 @@ class _GeneralBooksState extends State<GeneralBooks> {
           onTap: () {
             setState(() {
               selectedMenu = index;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => InfoPage(
+                            index: index,
+                            author: generalBooks[index].author,
+                            bookTitle: generalBooks[index].bookTitle,
+                            description: generalBooks[index].description,
+                            img: generalBooks[index].img,
+                            pages: generalBooks[index].pages,
+                            rating: generalBooks[index].rating,
+                          )));
             });
           },
           child: Column(
@@ -49,8 +61,18 @@ class _GeneralBooksState extends State<GeneralBooks> {
                 ),
                 trailing: IconButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const InfoPage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => InfoPage(
+                                  index: index,
+                                  author: generalBooks[index].author,
+                                  bookTitle: generalBooks[index].bookTitle,
+                                  description: generalBooks[index].description,
+                                  img: generalBooks[index].img,
+                                  pages: generalBooks[index].pages,
+                                  rating: generalBooks[index].rating,
+                                )));
                   },
                   icon: const Icon(
                     Icons.navigate_next,

@@ -7,8 +7,15 @@ final TextStyle descStyle =
     GoogleFonts.rowdies(fontSize: 20, color: Colors.grey);
 final TextStyle regStyle =
     GoogleFonts.abrilFatface(fontSize: 27, color: Colors.purple);
-    final TextStyle signStyle =
+final TextStyle signStyle =
     GoogleFonts.abrilFatface(fontSize: 27, color: Colors.white);
 final TextStyle formStyle = GoogleFonts.lato(fontSize: 16, color: Colors.grey);
 final TextStyle appTitleStyle =
     GoogleFonts.cookie(fontSize: 25, color: Colors.white);
+
+final TextStyle priceStyle = GoogleFonts.poppins(
+    fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white);
+final TextStyle descStyle2 = GoogleFonts.poppins(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+    color: const Color(0xFFCDCDCD));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BookDetails {
-  final String img, bookTitle, author, description;
+  final String img, bookTitle, author, description; 
   final int pages;
   final double rating;
   final double? price;
@@ -21,7 +21,6 @@ class BookDetails {
 
 //shuffles between the category lists
 List allBooks = [...scienceBooks, ...comBooks, ...artBooks, ...generalBooks];
-// List bookIndex = [allBooks, scienceBooks, comBooks, artBooks, generalBooks];
 
 //books in the science category
 List<BookDetails> scienceBooks = [
@@ -418,7 +417,7 @@ List<BookDetails> paidBooks = [
       isbn: 'ISBN: 978-978-213-243-0',
       price: 400.0),
   BookDetails(
-      img: 'assets/commercial/novel1.jpg',
+      img: 'assets/art/novel1.jpg',
       bookTitle: 'Things Fall Apart',
       author: "Chinua Achebe",
       rating: 4.0,
@@ -427,4 +426,24 @@ List<BookDetails> paidBooks = [
       pages: 200,
       isbn: 'ISBN: 978-978-213-243-0',
       price: 1000.0),
+  BookDetails(
+      img: 'assets/general/buyYoruba.jpg',
+      bookTitle: 'A Dictionary of the Yoruba Language',
+      author: 'Oduduwa Oranmiyan',
+      rating: 5.0,
+      description:
+          'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
+      pages: 257,
+      isbn: 'ISBN: 978-078-213-243-0',
+      price: 400.0),
+  BookDetails(
+      img: 'assets/general/essyoruba.jpg',
+      bookTitle: 'Essentials of Yoruba Grammar',
+      author: 'Awoboluyi',
+      rating: 3.0,
+      description:
+          'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
+      pages: 257,
+      isbn: 'ISBN: 978-078-213-243-0',
+      price: 400.0),
 ];

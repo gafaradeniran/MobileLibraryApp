@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mylibrary/menupages/library.dart';
 import 'package:mylibrary/screens/homeScreen.dart';
 import 'package:mylibrary/screens/welcomescreen.dart';
 
@@ -16,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Pocket Library',
       theme: ThemeData(),
       // home: const WelcomeScreen(),
-      home: const LibraryBooks(),
+      home: const ParentScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
