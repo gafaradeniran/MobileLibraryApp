@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/classes/searchWidget.dart';
-import 'package:mylibrary/infoPage.dart';
+import 'package:mylibrary/innerPages/infoPage.dart';
 
 class BookShop extends StatefulWidget {
   const BookShop({Key? key}) : super(key: key);

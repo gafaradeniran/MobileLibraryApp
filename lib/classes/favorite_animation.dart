@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:mylibrary/classes/bookmodel.dart';
 
+// widget for the favorite botton
 class FavoriteAnimation extends StatefulWidget {
-  const FavoriteAnimation({Key? key}) : super(key: key);
+  const FavoriteAnimation({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _FavoriteAnimationState createState() => _FavoriteAnimationState();
@@ -13,13 +17,12 @@ class _FavoriteAnimationState extends State<FavoriteAnimation>
   late AnimationController _controller;
   late Animation _colorAnimation;
   late Animation<double> _sizeAnimation;
-  
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-        vsync: this, duration: const Duration(milliseconds: 500));
+        vsync: this, duration: const Duration(milliseconds: 300));
     _colorAnimation =
         ColorTween(begin: Colors.grey, end: Colors.amber).animate(_controller);
 
@@ -31,10 +34,6 @@ class _FavoriteAnimationState extends State<FavoriteAnimation>
             tween: Tween<double>(begin: 50, end: 30), weight: 50),
       ],
     ).animate(_controller);
-
-    _controller.addListener(() {
-      print(_controller.value);
-    });
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
@@ -56,6 +55,9 @@ class _FavoriteAnimationState extends State<FavoriteAnimation>
     _controller.dispose();
   }
 
+  List favoriteList = [];
+  List mainDataList = [...allBooks];
+  // final int index = 0;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -64,6 +66,9 @@ class _FavoriteAnimationState extends State<FavoriteAnimation>
           return IconButton(
             onPressed: () {
               isFav ? _controller.reverse() : _controller.forward();
+              // isFav
+              //     ? favoriteList.add(mainDataList[index]) //this is where I was trying to add the tiles to list
+              //     : favoriteList.remove(mainDataList[index]);
             },
             icon: Icon(
               Icons.favorite,

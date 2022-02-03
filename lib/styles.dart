@@ -14,8 +14,8 @@ final TextStyle appTitleStyle =
     GoogleFonts.cookie(fontSize: 25, color: Colors.white);
 
 final TextStyle priceStyle = GoogleFonts.poppins(
-    fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white);
+    fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white);
 final TextStyle descStyle2 = GoogleFonts.poppins(
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: FontWeight.normal,
-    color: const Color(0xFFCDCDCD));
+    color: Colors.black);

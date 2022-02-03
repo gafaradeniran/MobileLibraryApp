@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
-import 'package:mylibrary/infoPage.dart';
+import 'package:mylibrary/innerPages/freeInfoPage.dart';
 
 class ScienceBooks extends StatefulWidget {
   const ScienceBooks({Key? key}) : super(key: key);
@@ -26,7 +26,7 @@ class _ScienceBooksState extends State<ScienceBooks> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => InfoPage(
+                        builder: (_) => FreeInfoPage(
                               index: index,
                               author: scienceBooks[index].author,
                               bookTitle: scienceBooks[index].bookTitle,
@@ -64,7 +64,7 @@ class _ScienceBooksState extends State<ScienceBooks> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (_) => InfoPage(
+                              builder: (_) => FreeInfoPage(
                                     index: index,
                                     author: scienceBooks[index].author,
                                     bookTitle: scienceBooks[index].bookTitle,

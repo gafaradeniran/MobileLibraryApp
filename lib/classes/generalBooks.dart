@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
-import 'package:mylibrary/infoPage.dart';
+import 'package:mylibrary/innerPages/freeInfoPage.dart';
+
 
 class GeneralBooks extends StatefulWidget {
   const GeneralBooks({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _GeneralBooksState extends State<GeneralBooks> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (_) => InfoPage(
+                      builder: (_) => FreeInfoPage(
                             index: index,
                             author: generalBooks[index].author,
                             bookTitle: generalBooks[index].bookTitle,
@@ -64,7 +65,7 @@ class _GeneralBooksState extends State<GeneralBooks> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (_) => InfoPage(
+                            builder: (_) => FreeInfoPage(
                                   index: index,
                                   author: generalBooks[index].author,
                                   bookTitle: generalBooks[index].bookTitle,
