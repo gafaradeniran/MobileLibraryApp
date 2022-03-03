@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/classes/button.dart';
 import 'package:mylibrary/classes/favorite_animation.dart';
 import 'package:mylibrary/styles.dart';
@@ -64,78 +65,79 @@ class _InfoPageState extends State<InfoPage> {
                     color: Colors.purple,
                     child: Row(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 250,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                    image: AssetImage(widget.img),
-                                    fit: BoxFit.cover),
-                              ),
-                            ),
-                            const SizedBox(height: 7),
-                            Text('${widget.pages} pages', style: priceStyle),
-                          ],
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Hero(
+                                  tag: 'hero-${paidBooks[widget.index].isbn}',
+                                  child: Image.asset(
+                                    widget.img,
+                                    height: 250,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                  )),
+                              const SizedBox(height: 7),
+                              Text('${widget.pages} pages', style: priceStyle),
+                            ],
+                          ),
                         ),
-                        const SizedBox(width: 8),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.bookTitle,
-                              style: appTitleStyle,
-                              softWrap: true,
-                              textAlign: TextAlign.justify,
-                              maxLines: 3,
-                            ),
-                            Text(
-                              widget.author,
-                              style: descStyle,
-                            ),
-                            RatingBar.builder(
-                              initialRating: widget.rating,
-                              direction: Axis.horizontal,
-                              itemCount: 5,
-                              itemSize: 20,
-                              itemPadding:
-                                  const EdgeInsets.symmetric(horizontal: 2.0),
-                              itemBuilder: (context, _) => const Icon(
-                                Icons.star,
-                                color: Colors.amber,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.bookTitle,
+                                style: appTitleStyle,
+                                softWrap: true,
+                                textAlign: TextAlign.justify,
+                                maxLines: 3,
                               ),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
-                            Text(
-                              widget.isbn!,
-                              style: GoogleFonts.poppins(
-                                  fontSize: 20,
-                                  color: Colors.white,
-                                  letterSpacing: 1.0),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Text('Price: \$${widget.price!}',
-                                    style: priceStyle),
-                                const FavoriteAnimation(),
-                              ],
-                            ),
-                          ],
+                              Text(
+                                widget.author,
+                                style: descStyle,
+                              ),
+                              RatingBar.builder(
+                                initialRating: widget.rating,
+                                direction: Axis.horizontal,
+                                itemCount: 5,
+                                itemSize: 20,
+                                itemPadding:
+                                    const EdgeInsets.symmetric(horizontal: 2.0),
+                                itemBuilder: (context, _) => const Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
+                              ),
+                              Text(
+                                widget.isbn!,
+                                style: GoogleFonts.poppins(
+                                    fontSize: 15,
+                                    color: Colors.white,
+                                    letterSpacing: 1.0),
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text('\$${widget.price!}', style: priceStyle),
+                                  const FavoriteAnimation(),
+                                ],
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     ),
                   ),
                 ),
               ),
+              const SizedBox(height: 12),
               Expanded(
                 flex: 1,
                 child: Container(
@@ -146,9 +148,10 @@ class _InfoPageState extends State<InfoPage> {
                     color: Colors.white,
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Stack(
                       children: [
+                        const SizedBox(height: 12),
                         Text(
                           widget.description,
                           style: descStyle2,
@@ -156,7 +159,7 @@ class _InfoPageState extends State<InfoPage> {
                           textAlign: TextAlign.justify,
                         ),
                         Align(
-                            alignment: Alignment.bottomCenter,
+                            alignment: Alignment.center,
                             child: myButtons('Buy Now', () {})),
                       ],
                     ),

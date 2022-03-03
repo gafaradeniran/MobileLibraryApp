@@ -334,7 +334,7 @@ List<BookDetails> paidBooks = [
       description:
           'A concise reference materials for lovers and learners of Mathematics. It is a very good companion for students who intend to build a career in Engineering and Physical Science',
       pages: 1300,
-      isbn: 'ISBN: 978-078-213-243-0',
+      isbn: 'ISBN: 978-078-213-243-1',
       price: 400.0),
   BookDetails(
       img: 'assets/general/buyYoruba1.jpg',
@@ -344,7 +344,7 @@ List<BookDetails> paidBooks = [
       description:
           'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
       pages: 257,
-      isbn: 'ISBN: 978-078-213-243-0',
+      isbn: 'ISBN: 978-078-213-243-2',
       price: 400.0),
   BookDetails(
       img: 'assets/general/buyYoruba.jpg',
@@ -354,7 +354,7 @@ List<BookDetails> paidBooks = [
       description:
           'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
       pages: 257,
-      isbn: 'ISBN: 978-078-213-243-0',
+      isbn: 'ISBN: 978-078-213-243-3',
       price: 400.0),
   BookDetails(
       img: 'assets/general/essyoruba.jpg',
@@ -364,7 +364,7 @@ List<BookDetails> paidBooks = [
       description:
           'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
       pages: 257,
-      isbn: 'ISBN: 978-078-213-243-0',
+      isbn: 'ISBN: 978-078-213-243-4',
       price: 400.0),
   BookDetails(
       img: 'assets/general/provYoruba.jpg',
@@ -374,7 +374,7 @@ List<BookDetails> paidBooks = [
       description:
           'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
       pages: 257,
-      isbn: 'ISBN: 978-978-004-243-0',
+      isbn: 'ISBN: 978-978-004-243-5',
       price: 400.0),
   BookDetails(
       img: 'assets/science/buyChem.jpg',
@@ -384,7 +384,7 @@ List<BookDetails> paidBooks = [
       description:
           'Organic Chemistry is a comprehensive text for A-level and O-level students. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
       pages: 200,
-      isbn: 'ISBN: 978-978-213-243-0',
+      isbn: 'ISBN: 978-978-213-243-6',
       price: 400.0),
   BookDetails(
       img: 'assets/science/lamladPhysics.jpg',
@@ -394,7 +394,7 @@ List<BookDetails> paidBooks = [
       description:
           'Organic Chemistry is a comprehensive text for A-level and O-level students. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
       pages: 200,
-      isbn: 'ISBN: 978-978-213-243-0',
+      isbn: 'ISBN: 978-978-213-243-7',
       price: 400.0),
   BookDetails(
       img: 'assets/commercial/jambAcc.jpg',
@@ -404,7 +404,7 @@ List<BookDetails> paidBooks = [
       description:
           'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
       pages: 200,
-      isbn: 'ISBN: 978-978-213-243-0',
+      isbn: 'ISBN: 978-978-213-243-8',
       price: 400.0),
   BookDetails(
       img: 'assets/commercial/lessonComm.jpg',
@@ -414,7 +414,7 @@ List<BookDetails> paidBooks = [
       description:
           'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
       pages: 200,
-      isbn: 'ISBN: 978-978-213-243-0',
+      isbn: 'ISBN: 978-978-213-243-9',
       price: 400.0),
   BookDetails(
       img: 'assets/art/novel1.jpg',
@@ -424,7 +424,7 @@ List<BookDetails> paidBooks = [
       description:
           'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
       pages: 200,
-      isbn: 'ISBN: 978-978-213-243-0',
+      isbn: 'ISBN: 978-978-213-241-0',
       price: 1000.0),
   BookDetails(
       img: 'assets/general/buyYoruba.jpg',
@@ -434,7 +434,7 @@ List<BookDetails> paidBooks = [
       description:
           'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
       pages: 257,
-      isbn: 'ISBN: 978-078-213-243-0',
+      isbn: 'ISBN: 978-078-213-241-9',
       price: 400.0),
   BookDetails(
       img: 'assets/general/essyoruba.jpg',
@@ -444,6 +444,6 @@ List<BookDetails> paidBooks = [
       description:
           'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
       pages: 257,
-      isbn: 'ISBN: 978-078-213-243-0',
+      isbn: 'ISBN: 978-078-213-241-7',
       price: 400.0),
 ];

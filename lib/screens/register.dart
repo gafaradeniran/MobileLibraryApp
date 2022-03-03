@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/menupages/library.dart';
+import 'package:mylibrary/classes/firebase_model/user_model.dart';
 import 'package:mylibrary/screens/homeScreen.dart';
 import 'package:mylibrary/screens/login.dart';
 import 'package:mylibrary/styles.dart';
@@ -23,6 +25,7 @@ class _RegistrationState extends State<Registration> {
   ];
   String? selectedValue;
   bool agree = false;
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -85,7 +88,7 @@ class _RegistrationState extends State<Registration> {
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)),
                           hintText: 'full name',
-                          labelText: 'Full name',
+                          labelText: 'Firstname Lastname',
                           prefixIcon:
                               const Icon(Icons.person, color: Colors.black),
                         ),
@@ -201,7 +204,7 @@ class _RegistrationState extends State<Registration> {
                               });
                             },
                           ),
-                          Text('I agree to the'),
+                          const Text('I agree to the'),
                           TextButton(
                             onPressed: () {},
                             child: const Text(
@@ -214,26 +217,16 @@ class _RegistrationState extends State<Registration> {
                       myButtons(
                         'SIGN UP',
                         () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (_) => const HomeScreen()));
-                          if (_formKey.currentState!.validate()) {
-                            // ScaffoldMessenger.of(context).showSnackBar(
-                            //     const SnackBar(content: Text('Processing Data')));
-                            debugPrint(
-                                'Registration Successful!!! ${_email!.text} - ${_password!.text}');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => const ParentScreen()));
-                          }
+                          // ScaffoldMessenger.of(context).showSnackBar(
+                          //     const SnackBar(content: Text('Processing Data')));
+
+                          register(_email!.text, _password!.text);
                         },
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Already have an account?',
+                          const Text('Already have an account?',
                               style: TextStyle(fontSize: 17)),
                           TextButton(
                               onPressed: () {
@@ -243,7 +236,7 @@ class _RegistrationState extends State<Registration> {
                                         builder: (_) => const Login()));
                               },
                               child: const Text(
-                                'sign in',
+                                'Sign in',
                                 style: TextStyle(
                                     color: Colors.purple,
                                     fontSize: 22,
@@ -277,5 +270,38 @@ class _RegistrationState extends State<Registration> {
     _fullname!.dispose();
     _email!.dispose();
     _password!.dispose();
+  }
+
+  void register(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((value) => {postDetailsToFirestore()})
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
+  }
+
+  Future<void> postDetailsToFirestore() async {
+    //this method will call the firestore, usermodel and send values to detabase
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+    User? user = _auth.currentUser;
+    UserModel userModel = UserModel();
+
+    userModel.email = user!.email;
+    userModel.userid = user.uid;
+    userModel.fullname = _fullname!.text;
+    //userModel.departments = user.departments;
+
+    await firebaseFirestore
+        .collection('users')
+        .doc(user.uid)
+        .set(userModel.toMap());
+    Fluttertoast.showToast(msg: 'Registration successful! ');
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (_) => const ParentScreen()),
+        (route) => false);
   }
 }

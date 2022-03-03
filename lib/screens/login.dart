@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
@@ -17,8 +19,10 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -109,11 +113,14 @@ class _LoginState extends State<Login> {
                                 ),
                                 fillColor: Colors.white,
                               ),
+                              onSaved: (value) {
+                                _email.text = value!;
+                              },
                               validator: (value) {
                                 Pattern epattern =
                                     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
                                 RegExp regex = RegExp(epattern.toString());
-                                if (!regex.hasMatch(value!)) {
+                                if (!regex.hasMatch(value!) || value.isEmpty) {
                                   return 'Invalid e-mail address';
                                 } else {
                                   return null;
@@ -124,6 +131,7 @@ class _LoginState extends State<Login> {
                             TextFormField(
                                 controller: _password,
                                 autofocus: false,
+                                obscureText: true,
                                 decoration: InputDecoration(
                                   hintText: 'Password',
                                   hintStyle:
@@ -139,12 +147,16 @@ class _LoginState extends State<Login> {
                                   ),
                                   fillColor: Colors.white,
                                 ),
+                                onSaved: (value) {
+                                  _password.text = value!;
+                                },
                                 validator: (value) {
                                   Pattern pattern =
-                                      r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+                                      r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$";
                                   RegExp regex = RegExp(pattern.toString());
-                                  if (!regex.hasMatch(value!)) {
-                                    return 'Minimum of 8 chars, 1 letter, 1 number and 1 special char';
+                                  if (!regex.hasMatch(value!) ||
+                                      value.isEmpty) {
+                                    return 'Minimum of 6 chars, 1 letter, and 1 number'; //modified d password field
                                   }
                                   return null;
                                 }),
@@ -167,25 +179,16 @@ class _LoginState extends State<Login> {
                                 if (_formKey.currentState!.validate()) {
                                   // ScaffoldMessenger.of(context).showSnackBar(
                                   //     const SnackBar(content: Text('Processing Data')));
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => const ParentScreen()));
+                                  signIn(_email.text, _password.text);
                                 }
                               },
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Text("Don't have an account?"),
+                                const Text("Don't have an account?"),
                                 TextButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (_) =>
-                                                  const Registration()));
-                                    },
+                                    onPressed: () {},
                                     child: const Text(
                                       'Sign Up',
                                       style: TextStyle(
@@ -195,54 +198,31 @@ class _LoginState extends State<Login> {
                                     )),
                               ],
                             ),
-                            const SizedBox(height: 8),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.75,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0),
-                                child: Row(
-                                  children: const [
-                                    Icon(
-                                      FontAwesomeIcons.facebook,
-                                      size: 40,
-                                      color: Colors.blue,
-                                    ),
-                                    const SizedBox(width: 12),
-                                    Text('Signin with Facebook',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                  ],
-                                ),
-                              ),
-                            ),
                             const SizedBox(height: 10),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.75,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12.0),
-                                child: Row(
-                                  children: [
-                                    Image.asset('assets/googlelogo1.png',
-                                        height: 40),
-                                    const SizedBox(width: 12),
-                                    const Text('Signin with Google',
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 20)),
-                                  ],
+                            GestureDetector(
+                              onTap: () {},
+                              child: Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[400],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                height: 50,
+                                width: MediaQuery.of(context).size.width * 0.75,
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12.0),
+                                  child: Row(
+                                    children: [
+                                      Image.asset('assets/googlelogo1.png',
+                                          height: 40),
+                                      const SizedBox(width: 12),
+                                      const Text('Signin with Google',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 20)),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -258,5 +238,20 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void signIn(String email, String password) async {
+    if (_formKey.currentState!.validate()) {
+      await _auth
+          .signInWithEmailAndPassword(email: email, password: password)
+          .then((uid) => {
+                Fluttertoast.showToast(msg: 'Login successful!'),
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const ParentScreen())),
+              })
+          .catchError((e) {
+        Fluttertoast.showToast(msg: e!.message);
+      });
+    }
   }
 }

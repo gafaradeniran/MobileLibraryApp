@@ -111,8 +111,11 @@ class _BookShopState extends State<BookShop> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
-                                child: Image.asset(paidBooks[index].img,
-                                    fit: BoxFit.fill),
+                                child: Hero(
+                                  tag: 'hero-${paidBooks[index].isbn}',
+                                  child: Image.asset(paidBooks[index].img,
+                                      fit: BoxFit.fill),
+                                ),
                               ),
                             ),
                             Text(

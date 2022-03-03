@@ -15,7 +15,13 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  List favoriteList = [];
+  late List<Widget> favoriteList;
+  @override
+  void initState() {
+    super.initState();
+    favoriteList = [];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
