@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mylibrary/classes/firebase_model/firebase_methods.dart';
 import 'package:mylibrary/styles.dart';
 
 class Dashboard extends StatefulWidget {
@@ -73,7 +74,10 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       const Text('Log out'),
                       IconButton(
-                          onPressed: () {}, icon: const Icon(Icons.logout)),
+                          onPressed: () async {
+                            await Authentication.signOut(context: context);
+                          },
+                          icon: const Icon(Icons.logout)),
                     ],
                   ),
                 ],

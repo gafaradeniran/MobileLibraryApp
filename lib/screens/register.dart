@@ -186,10 +186,10 @@ class _RegistrationState extends State<Registration> {
                           keyboardType: TextInputType.visiblePassword,
                           validator: (value) {
                             Pattern pattern =
-                                r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
+                                r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
                             RegExp regex = RegExp(pattern.toString());
                             if (!regex.hasMatch(value!)) {
-                              return 'Minimum of 8 chars, 1 letter, 1 number and 1 special char';
+                              return 'Minimum of 8 chars, 1 letter and 1 number';
                             }
                             return null;
                           }),
@@ -273,13 +273,17 @@ class _RegistrationState extends State<Registration> {
   }
 
   void register(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      await _auth
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) => {postDetailsToFirestore()})
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
+    try {
+      if (_formKey.currentState!.validate()) {
+        await _auth
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((value) => {postDetailsToFirestore()})
+            .catchError((e) {
+          Fluttertoast.showToast(msg: e!.message);
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 

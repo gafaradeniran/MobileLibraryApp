@@ -5,21 +5,20 @@ class UserModel {
 // recieving data from server
   factory UserModel.fromMap(map) {
     return UserModel(
-      userid: map['userid'],
-      email: map['me@gmail.com'],
-      fullname: map['Ola Adeniran'],
-      departments: map['Science'],
+      userid: map['uid'],
+      email: map['mail@email.com'],
+      fullname: map['fullname'],
+      departments: map['dept'],
     );
   }
 
   //sending data to server
-  Map<String, dynamic> toMap(){
-    return{
-      'userid' : userid,
-      'me@gmail.com' : email,
-      'Ola Adeniran' : fullname,
-      'Science' : departments,
+  Map<String, dynamic> toMap() {
+    return {
+      'uid': userid,
+      'mail@email.com': email,
+      'fullname': fullname,
+      'dept': departments,
     };
-      
   }
 }

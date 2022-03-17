@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/menupages/library.dart';
 import 'package:mylibrary/screens/homeScreen.dart';
 import 'package:mylibrary/screens/register.dart';
 import 'package:mylibrary/styles.dart';
@@ -36,13 +34,6 @@ class _LoginState extends State<Login> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(Icons.arrow_back_ios_new_outlined,
-                size: 30, color: Colors.white),
-          ),
           elevation: 0,
         ),
         body: SafeArea(
@@ -143,7 +134,7 @@ class _LoginState extends State<Login> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(20)),
                                   focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
+                                    borderRadius: BorderRadius.circular(20.0),
                                   ),
                                   fillColor: Colors.white,
                                 ),
@@ -151,14 +142,11 @@ class _LoginState extends State<Login> {
                                   _password.text = value!;
                                 },
                                 validator: (value) {
-                                  Pattern pattern =
-                                      r"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}$";
-                                  RegExp regex = RegExp(pattern.toString());
-                                  if (!regex.hasMatch(value!) ||
-                                      value.isEmpty) {
-                                    return 'Minimum of 6 chars, 1 letter, and 1 number'; //modified d password field
+                                  if (value!.isEmpty) {
+                                    return "Email field can't be empty";
+                                  } else {
+                                    return null;
                                   }
-                                  return null;
                                 }),
                             const SizedBox(height: 8),
                             const Align(
@@ -188,7 +176,13 @@ class _LoginState extends State<Login> {
                               children: [
                                 const Text("Don't have an account?"),
                                 TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) =>
+                                                  const Registration()));
+                                    },
                                     child: const Text(
                                       'Sign Up',
                                       style: TextStyle(
@@ -200,7 +194,11 @@ class _LoginState extends State<Login> {
                             ),
                             const SizedBox(height: 10),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                signInWithGoogle();
+
+                                setState(() {});
+                              },
                               child: Container(
                                 alignment: Alignment.center,
                                 decoration: BoxDecoration(
@@ -241,17 +239,52 @@ class _LoginState extends State<Login> {
   }
 
   void signIn(String email, String password) async {
-    if (_formKey.currentState!.validate()) {
-      await _auth
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((uid) => {
-                Fluttertoast.showToast(msg: 'Login successful!'),
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const ParentScreen())),
-              })
-          .catchError((e) {
-        Fluttertoast.showToast(msg: e!.message);
-      });
+    try {
+      if (_formKey.currentState!.validate()) {
+        await _auth
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((uid) => {
+                  Fluttertoast.showToast(msg: 'Login successful!'),
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const ParentScreen())),
+                })
+            .catchError((e) {
+          Fluttertoast.showToast(msg: e!.message);
+        });
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  //google sign in
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignIn googleSignIn = await GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await GoogleSignIn().signIn();
+
+      // Obtain the auth details from the request
+
+      if (googleSignInAccount != null) {
+        final GoogleSignInAuthentication googleSignInAuth =
+            await googleSignInAccount.authentication;
+        final AuthCredential authCredential = GoogleAuthProvider.credential(
+            idToken: googleSignInAuth.idToken,
+            accessToken: googleSignInAuth.accessToken);
+
+        UserCredential result =
+            await _auth.signInWithCredential(authCredential);
+        User? user = result.user;
+
+        // ignore: unnecessary_null_comparison
+        if (result != null) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (_) => ParentScreen()));
+        }
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
 import 'package:mylibrary/classes/onboarding.dart';
 import 'package:mylibrary/screens/login.dart';
@@ -42,16 +41,16 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   },
                   itemBuilder: (context, index) => Column(
                     children: [
-                      const SizedBox(height: 30),
+                      const SizedBox(height: 25),
                       Image.asset(
                         sliders[index].img,
                         fit: BoxFit.contain,
                       ),
                       Text(sliders[index].title, style: titleStyle),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 15),
                       Text(sliders[index].description,
                           style: descStyle, textAlign: TextAlign.center),
-                      const SizedBox(height: 40),
+                      const SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(
@@ -69,7 +68,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                   ),
                                 )),
                       ),
-                      ],
+                    ],
                   ),
                 ),
               ),
@@ -110,7 +109,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ),
                     )
-                  : Center(),
+                  : const Center(),
             ],
           ),
         ),

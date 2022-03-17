@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
-import 'package:mylibrary/freeInfoPage.dart';
 import 'package:mylibrary/innerPages/freeInfoPage.dart';
 
 class AllBooks extends StatefulWidget {
