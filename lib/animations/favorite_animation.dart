@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mylibrary/classes/bookmodel.dart';
 
 // widget for the favorite botton
 class FavoriteAnimation extends StatefulWidget {
-  const FavoriteAnimation({
-    Key? key,
-  }) : super(key: key);
+  const FavoriteAnimation({Key? key}) : super(key: key);
 
   @override
   _FavoriteAnimationState createState() => _FavoriteAnimationState();
@@ -55,9 +52,6 @@ class _FavoriteAnimationState extends State<FavoriteAnimation>
     _controller.dispose();
   }
 
-  List favoriteList = [];
-  List mainDataList = [...allBooks];
-  // final int index = 0;
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -65,10 +59,14 @@ class _FavoriteAnimationState extends State<FavoriteAnimation>
         builder: (BuildContext context, _) {
           return IconButton(
             onPressed: () {
-              isFav ? _controller.reverse() : _controller.forward();
-              // isFav
-              //     ? favoriteList.add(mainDataList[index]) //this is where I was trying to add the tiles to list
-              //     : favoriteList.remove(mainDataList[index]);
+              setState(() {
+                if (isFav) {
+                  _controller.reverse();
+                } else {
+                  _controller.forward();
+                }
+                isFav = true;
+              });
             },
             icon: Icon(
               Icons.favorite,

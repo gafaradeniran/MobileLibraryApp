@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/carouselModel.dart';
@@ -15,9 +16,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
+  User? user = FirebaseAuth.instance.currentUser;
+  // final user = FirebaseAuth.instance.currentUser;
 
   @override
   Widget build(BuildContext context) {
+    // debugPrint(user.toString());
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -28,13 +32,7 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.purple,
-          leading: IconButton(
-            icon: const Icon(Icons.navigate_before, color: Colors.white),
-            iconSize: 30,
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
+          automaticallyImplyLeading: false,
           elevation: 0,
           title: Text(
             'MyLibrary',
@@ -53,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    "Welcome User!",
+                    "Welcome ${user?.displayName}",
                     style: GoogleFonts.lobster(
                         color: Colors.white70,
                         fontSize: 20,
@@ -129,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Container(
+                        SizedBox(
                           height: 358,
                           width: double.infinity,
                           child: ListView.builder(
@@ -176,7 +174,6 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ]),
                 ),
-               
               ],
             ),
           ),

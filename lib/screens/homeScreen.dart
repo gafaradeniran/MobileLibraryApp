@@ -7,7 +7,7 @@ import 'package:mylibrary/menupages/library.dart';
 
 class ParentScreen extends StatefulWidget {
   const ParentScreen({Key? key}) : super(key: key);
-
+  
   @override
   _ParentScreenState createState() => _ParentScreenState();
 }
@@ -28,12 +28,20 @@ class _ParentScreenState extends State<ParentScreen> {
     Icons.favorite,
     Icons.person,
   ];
-  final List<String> labels = ['Home', 'Library', 'Shop', 'Favourites', 'Dashboard'];
+  final List<String> labels = [
+    'Home',
+    'Library',
+    'Shop',
+    'Favourites',
+    'Dashboard'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: pages[currentIndex],
-      bottomNavigationBar: SizedBox(height: 60,
+      bottomNavigationBar: SizedBox(
+        height: 60,
         child: BottomAppBar(
           elevation: 0,
           child: FittedBox(
@@ -73,7 +81,11 @@ class _ParentScreenState extends State<ParentScreen> {
                           ),
                           const SizedBox(width: 5),
                           currentIndex == index
-                              ? Text(labels[index], style: TextStyle(color: Colors.white, fontSize: 15),)
+                              ? Text(
+                                  labels[index],
+                                  style: const TextStyle(
+                                      color: Colors.white, fontSize: 15),
+                                )
                               : const Center(),
                         ],
                       ),

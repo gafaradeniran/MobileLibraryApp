@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylibrary/classes/bookmodel.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/classes/favorite_animation.dart';
+import 'package:mylibrary/classes/favorite_icon.dart';
+import 'package:mylibrary/providers/favoriteProvider.dart';
 import 'package:mylibrary/styles.dart';
+import 'package:provider/provider.dart';
+
+import '../classes/ratingWidget.dart';
 
 //details page for d free books
 class FreeInfoPage extends StatefulWidget {
@@ -28,6 +33,7 @@ class FreeInfoPage extends StatefulWidget {
 }
 
 class _FreeInfoPageState extends State<FreeInfoPage> {
+  final hivedb = Hive.box('ratingBox');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,28 +103,26 @@ class _FreeInfoPageState extends State<FreeInfoPage> {
                                 widget.author,
                                 style: descStyle,
                               ),
-                              RatingBar.builder(
-                                initialRating: widget.rating,
-                                direction: Axis.horizontal,
-                                itemCount: 5,
-                                itemSize: 20,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 2.0),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  print(rating);
-                                },
-                              ),
-                              const SizedBox(height: 5),
+                              ValueListenableBuilder(
+                                  valueListenable:
+                                      Hive.box('ratingBox').listenable(),
+                                  builder: (context, Box ratingBox, child) {
+                                    double getRating = ratingBox.get(
+                                        'ratingBox',
+                                        defaultValue: widget.rating);
+                                    return Rating(rating: widget.rating);
+                                  }),
+                              const SizedBox(height: 8),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text('Price: Free', style: priceStyle),
-                                  const FavoriteAnimation(),
+                                  Consumer<Favoriteprovider>(
+                                    builder: (context, value, child) => InkWell(
+                                        onTap: () {},
+                                        child: const FavoriteIcon()),
+                                  ),
                                 ],
                               ),
                             ],

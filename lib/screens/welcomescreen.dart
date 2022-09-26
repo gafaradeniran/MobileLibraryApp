@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/classes/onboarding.dart';
-import 'package:mylibrary/screens/login.dart';
-import 'package:mylibrary/screens/register.dart';
+import 'package:mylibrary/screens/onboarding.dart';
+import 'package:mylibrary/screens/auth_screens/login.dart';
+import 'package:mylibrary/screens/auth_screens/register.dart';
 import 'package:mylibrary/styles.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();

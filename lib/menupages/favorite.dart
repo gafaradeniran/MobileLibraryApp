@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mylibrary/classes/bookmodel.dart';
+import 'package:mylibrary/providers/favoriteProvider.dart';
+import 'package:provider/provider.dart';
 
-// this page displays the favorite tiles
 class FavoritePage extends StatefulWidget {
-  const FavoritePage(
-      {Key? key, this.index, this.img, this.bookTitle, this.author, this.pages})
+  const FavoritePage({Key? key, this.img, this.bookTitle, this.author})
       : super(key: key);
-  final int? index;
+
   final String? img, bookTitle, author;
-  final int? pages;
 
   @override
-  _FavoritePageState createState() => _FavoritePageState();
+  State<FavoritePage> createState() => _FavoritePageState();
 }
 
-class _FavoritePageState extends State<FavoritePage> {
-  late List<Widget> favoriteList;
-  @override
-  void initState() {
-    super.initState();
-    favoriteList = [];
-  }
+List<BookDetails> favoriteList = [];
 
+class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Your Favorite Books',
-            style: GoogleFonts.fjallaOne(
-                color: Colors.purple,
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
-          ),
-          centerTitle: true,
-          elevation: 0.2,
-          backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          'Your Favorite Books',
+          style: GoogleFonts.fjallaOne(
+              color: Colors.purple, fontSize: 22, fontWeight: FontWeight.bold),
         ),
-        body: favoriteList.isEmpty
+        centerTitle: true,
+        elevation: 0.2,
+        backgroundColor: Colors.white,
+      ),
+      body: favoriteList.isEmpty
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -77,27 +70,47 @@ class _FavoritePageState extends State<FavoritePage> {
                   ),
                 ],
               )
-            : GestureDetector(
-                onTap: () {
-                  setState(() {});
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+            : Consumer<Favoriteprovider>(
+        builder: (context, value, child) => GestureDetector(
+          onTap: () {
+            setState(() {});
+          },
+          child: ListView.builder(
+              itemCount: value.favoriteList.length,
+              itemBuilder: (context, index) {
+                return Dismissible(
+                  key: UniqueKey(),
+                  direction: DismissDirection.horizontal,
+                  background: Container(
+                    color: Colors.purple,
                   ),
-                  child: ListTile(
-                    leading: Image.asset(widget.img!),
-                    title: Text(widget.bookTitle!),
-                    subtitle: Text(widget.author!),
-                    trailing: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.navigate_next,
-                        size: 30,
+                  onDismissed: (direction) {
+                    value.del(index);
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('book removed from Favorite List')));
+                  },
+                  child: Card(
+                    elevation: 4.0,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    child: ListTile(
+                      leading: Image.asset(
+                          value.favoriteList[index].img), //null operator used
+                      title: Text((value.favoriteList[index].bookTitle)),
+                      subtitle: Text((value.favoriteList[index].author)),
+                      trailing: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.navigate_next,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ));
+                );
+              }),
+        ),
+      ),
+    );
   }
 }

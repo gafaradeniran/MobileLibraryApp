@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mylibrary/classes/ratingWidget.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/innerPages/freeInfoPage.dart';
 
 class CommercialBooks extends StatefulWidget {
-  const CommercialBooks({Key? key}) : super(key: key);
+  const CommercialBooks({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _CommercialBooksState createState() => _CommercialBooksState();
@@ -28,12 +31,12 @@ class _CommercialBooksState extends State<CommercialBooks> {
                   MaterialPageRoute(
                       builder: (_) => FreeInfoPage(
                             index: index,
-                            author: comBooks[index].author,
-                            bookTitle: comBooks[index].bookTitle,
-                            description: comBooks[index].description,
-                            img: comBooks[index].img,
-                            pages: comBooks[index].pages,
-                            rating: comBooks[index].rating,
+                            author: allBooks[index].author,
+                            bookTitle: allBooks[index].bookTitle,
+                            description: allBooks[index].description,
+                            img: allBooks[index].img,
+                            pages: allBooks[index].pages,
+                            rating: allBooks[index].rating,
                           )));
             });
           },
@@ -43,22 +46,7 @@ class _CommercialBooksState extends State<CommercialBooks> {
               ListTile(
                 leading: Image.asset(comBooks[index].img),
                 title: Text(comBooks[index].bookTitle),
-                subtitle: RatingBar.builder(
-                  initialRating: comBooks[index].rating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 20,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
-                ),
+                subtitle: Rating(rating: comBooks[index].rating),
                 trailing: IconButton(
                   onPressed: () {
                     Navigator.push(
@@ -66,12 +54,12 @@ class _CommercialBooksState extends State<CommercialBooks> {
                         MaterialPageRoute(
                             builder: (_) => FreeInfoPage(
                                   index: index,
-                                  author: comBooks[index].author,
-                                  bookTitle: comBooks[index].bookTitle,
-                                  description: comBooks[index].description,
-                                  img: comBooks[index].img,
-                                  pages: comBooks[index].pages,
-                                  rating: comBooks[index].rating,
+                                  author: allBooks[index].author,
+                                  bookTitle: allBooks[index].bookTitle,
+                                  description: allBooks[index].description,
+                                  img: allBooks[index].img,
+                                  pages: allBooks[index].pages,
+                                  rating: allBooks[index].rating,
                                 )));
                   },
                   icon: const Icon(

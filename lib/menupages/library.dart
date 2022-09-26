@@ -1,13 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylibrary/classes/artBooks.dart';
-import 'package:mylibrary/classes/allBooks.dart';
-import 'package:mylibrary/classes/commBooks.dart';
-import 'package:mylibrary/classes/generalBooks.dart';
-import 'package:mylibrary/classes/scienceBooks.dart';
-import 'package:mylibrary/classes/searchWidget.dart';
-import 'package:mylibrary/menupages/dashboard.dart';
-import 'package:mylibrary/menupages/favorite.dart';
+import 'package:mylibrary/bookWidgets/artBooks.dart';
+import 'package:mylibrary/bookWidgets/allBooks.dart';
+import 'package:mylibrary/bookWidgets/commBooks.dart';
+import 'package:mylibrary/bookWidgets/generalBooks.dart';
+import 'package:mylibrary/bookWidgets/scienceBooks.dart';
+import 'package:mylibrary/screens/homeScreen.dart';
 
 class LibraryBooks extends StatefulWidget {
   const LibraryBooks({Key? key}) : super(key: key);
@@ -18,10 +17,11 @@ class LibraryBooks extends StatefulWidget {
 
 class _LibraryBooksState extends State<LibraryBooks>
     with SingleTickerProviderStateMixin {
-  // final PageController _pageController = PageController(initialPage: 0);
   ScrollController _scrollController = ScrollController();
   TabController? _tabController;
   int selectedMenu = 0;
+  // final user = FirebaseAuth.instance.currentUser!;
+  User? user = FirebaseAuth.instance.currentUser;
 
   List<String> categories = ['All', 'General', 'Science', 'Art', 'Commercial'];
 
@@ -57,7 +57,8 @@ class _LibraryBooksState extends State<LibraryBooks>
             icon: const Icon(Icons.navigate_before, color: Colors.white),
             iconSize: 30,
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const ParentScreen()));
             },
           ),
           title: Text(
@@ -67,13 +68,19 @@ class _LibraryBooksState extends State<LibraryBooks>
           ),
           actions: [
             IconButton(
-                onPressed: () {
-                  // Navigator.push(context,
-                  //     MaterialPageRoute(builder: (_) => const SearchField()));
-                },
-                icon: const Icon(Icons.search_outlined)),
-            const CircleAvatar(
-                radius: 18, backgroundImage: AssetImage('assets/appLogo.png')),
+              icon: const Icon(Icons.search_outlined),
+              onPressed: () {
+                // Navigator.push(context,
+                //     MaterialPageRoute(builder: (_) => const SearchField()));
+              },
+            ),
+            CircleAvatar(
+              radius: 18,
+              backgroundImage: NetworkImage('${user?.photoURL}'),
+              onBackgroundImageError: (e, s) {
+                debugPrint('image issue, $e,$s');
+              },
+            ),
             const SizedBox(width: 12),
           ],
           elevation: 0,

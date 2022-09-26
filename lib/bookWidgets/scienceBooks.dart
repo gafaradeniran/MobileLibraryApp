@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mylibrary/classes/ratingWidget.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/innerPages/freeInfoPage.dart';
 
@@ -28,12 +29,12 @@ class _ScienceBooksState extends State<ScienceBooks> {
                     MaterialPageRoute(
                         builder: (_) => FreeInfoPage(
                               index: index,
-                              author: scienceBooks[index].author,
-                              bookTitle: scienceBooks[index].bookTitle,
-                              description: scienceBooks[index].description,
-                              img: scienceBooks[index].img,
-                              pages: scienceBooks[index].pages,
-                              rating: scienceBooks[index].rating,
+                              author: allBooks[index].author,
+                              bookTitle: allBooks[index].bookTitle,
+                              description: allBooks[index].description,
+                              img: allBooks[index].img,
+                              pages: allBooks[index].pages,
+                              rating: allBooks[index].rating,
                             )));
               });
             },
@@ -43,22 +44,7 @@ class _ScienceBooksState extends State<ScienceBooks> {
                 ListTile(
                   leading: Image.asset(scienceBooks[index].img),
                   title: Text(scienceBooks[index].bookTitle),
-                  subtitle: RatingBar.builder(
-                    initialRating: scienceBooks[index].rating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemSize: 20,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {
-                      print(rating);
-                    },
-                  ),
+                  subtitle: Rating(rating: scienceBooks[index].rating),
                   trailing: IconButton(
                     onPressed: () {
                       Navigator.push(
@@ -66,13 +52,12 @@ class _ScienceBooksState extends State<ScienceBooks> {
                           MaterialPageRoute(
                               builder: (_) => FreeInfoPage(
                                     index: index,
-                                    author: scienceBooks[index].author,
-                                    bookTitle: scienceBooks[index].bookTitle,
-                                    description:
-                                        scienceBooks[index].description,
-                                    img: scienceBooks[index].img,
-                                    pages: scienceBooks[index].pages,
-                                    rating: scienceBooks[index].rating,
+                                    author: allBooks[index].author,
+                                    bookTitle: allBooks[index].bookTitle,
+                                    description: allBooks[index].description,
+                                    img: allBooks[index].img,
+                                    pages: allBooks[index].pages,
+                                    rating: allBooks[index].rating,
                                   )));
                     },
                     icon: const Icon(

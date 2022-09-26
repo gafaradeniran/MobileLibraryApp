@@ -92,18 +92,15 @@ class _BookShopState extends State<BookShop> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (_) => InfoPage(
-                                              index: index,
-                                              author: paidBooks[index].author,
-                                              bookTitle:
-                                                  paidBooks[index].bookTitle,
-                                              description:
-                                                  paidBooks[index].description,
-                                              img: paidBooks[index].img,
-                                              pages: paidBooks[index].pages,
-                                              rating: paidBooks[index].rating,
-                                              price: paidBooks[index].price,
-                                              isbn: paidBooks[index].isbn,
-                                            )));
+                                            index: index,
+                                            img: paidBooks[index].img,
+                                            bookTitle:
+                                                paidBooks[index].bookTitle,
+                                            author: paidBooks[index].author,
+                                            description:
+                                                paidBooks[index].description,
+                                            pages: paidBooks[index].pages,
+                                            rating: paidBooks[index].rating)));
                               },
                               child: Container(
                                 height: 200,

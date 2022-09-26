@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mylibrary/classes/ratingWidget.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/innerPages/freeInfoPage.dart';
 
-class AllBooks extends StatefulWidget {
-  const AllBooks({Key? key}) : super(key: key);
+class ArtBooks extends StatefulWidget {
+  const ArtBooks({
+    Key? key,
+  }) : super(key: key);
 
   @override
-  State<AllBooks> createState() => _AllBooksState();
+  _ArtBooksState createState() => _ArtBooksState();
 }
 
-class _AllBooksState extends State<AllBooks> {
+class _ArtBooksState extends State<ArtBooks> {
   int selectedMenu = 0;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const ScrollPhysics(),
-      itemCount: allBooks.length,
+      itemCount: artBooks.length,
       shrinkWrap: true,
-      itemBuilder: (_, index) {
+      itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -41,38 +44,23 @@ class _AllBooksState extends State<AllBooks> {
             children: [
               const SizedBox(height: 10),
               ListTile(
-                leading: Image.asset(allBooks[index].img),
-                title: Text(allBooks[index].bookTitle),
-                subtitle: RatingBar.builder(
-                  initialRating: allBooks[index].rating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 20,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
-                ),
+                leading: Image.asset(artBooks[index].img),
+                title: Text(artBooks[index].bookTitle),
+                subtitle: Rating(rating: artBooks[index].rating),
                 trailing: IconButton(
                   onPressed: () {
-                   Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (_) => FreeInfoPage(
-                            index: index,
-                            author: allBooks[index].author,
-                            bookTitle: allBooks[index].bookTitle,
-                            description: allBooks[index].description,
-                            img: allBooks[index].img,
-                            pages: allBooks[index].pages,
-                            rating: allBooks[index].rating,
-                          )));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => FreeInfoPage(
+                                  index: index,
+                                  author: allBooks[index].author,
+                                  bookTitle: allBooks[index].bookTitle,
+                                  description: allBooks[index].description,
+                                  img: allBooks[index].img,
+                                  pages: allBooks[index].pages,
+                                  rating: allBooks[index].rating,
+                                )));
                   },
                   icon: const Icon(
                     Icons.navigate_next,

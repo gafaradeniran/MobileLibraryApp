@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:mylibrary/classes/firebase_model/firebase_methods.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mylibrary/firebase_model/firebase_methods.dart';
 import 'package:mylibrary/styles.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -10,6 +13,9 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  User? user = FirebaseAuth.instance.currentUser;
+  // final user = FirebaseAuth.instance.currentUser;
+  final hivedb = Hive.box('darkModebox');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,13 +34,16 @@ class _DashboardState extends State<Dashboard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    const CircleAvatar(
+                    CircleAvatar(
                       radius: 80,
-                      backgroundImage: AssetImage('assets/soyinka.jpg'),
+                      backgroundImage: NetworkImage('${user?.photoURL}'),
+                      onBackgroundImageError: (e, s) {
+                        // debugPrint('image issue, $e,$s');
+                      },
                     ),
                     const SizedBox(height: 10),
-                    Text("User's Full Name", style: priceStyle),
-                    Text('Useremail@email.com', style: priceStyle),
+                    Text('${user?.displayName}', style: priceStyle),
+                    Text('${user?.email}', style: priceStyle),
                     Text('User Department', style: priceStyle),
                   ],
                 ),
@@ -46,6 +55,22 @@ class _DashboardState extends State<Dashboard> {
               child: Column(
                 children: [
                   const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      const Text('Change Theme'),
+                      ValueListenableBuilder(
+                          valueListenable: Hive.box('darkModeBox').listenable(),
+                          builder: (context, Box box, child) {
+                            bool getValue =
+                                box.get('darkModeBox', defaultValue: true);
+                            return Switch(
+                                value: getValue,
+                                onChanged: (value) {
+                                  box.put('darkModeBox', !getValue);
+                                });
+                          }),
+                    ],
+                  ),
                   Row(
                     children: [
                       const Text('Change E-mail'),
@@ -74,8 +99,12 @@ class _DashboardState extends State<Dashboard> {
                     children: [
                       const Text('Log out'),
                       IconButton(
-                          onPressed: () async {
-                            await Authentication.signOut(context: context);
+                          onPressed: () {
+                            try {
+                              Authentication.signOut(context: context);
+                            } catch (e) {
+                              Fluttertoast.showToast(msg: e.toString());
+                            }
                           },
                           icon: const Icon(Icons.logout)),
                     ],

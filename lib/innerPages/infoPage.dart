@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/classes/favorite_animation.dart';
+import 'package:mylibrary/classes/favorite_icon.dart';
+import 'package:mylibrary/providers/favoriteProvider.dart';
 import 'package:mylibrary/styles.dart';
+import 'package:provider/provider.dart';
 
 // details page for the buy books
 class InfoPage extends StatefulWidget {
-  const InfoPage(
-      {Key? key,
+  const InfoPage({Key? key,
       required this.index,
       required this.img,
       required this.bookTitle,
@@ -26,6 +26,7 @@ class InfoPage extends StatefulWidget {
   final double rating;
   final double? price;
   final String? isbn;
+
   @override
   _InfoPageState createState() => _InfoPageState();
 }
@@ -71,7 +72,7 @@ class _InfoPageState extends State<InfoPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Hero(
-                                  tag: 'hero-${paidBooks[widget.index].isbn}',
+                                  tag: 'hero-${widget.index}',
                                   child: Image.asset(
                                     widget.img,
                                     height: 250,
@@ -121,12 +122,26 @@ class _InfoPageState extends State<InfoPage> {
                                     color: Colors.white,
                                     letterSpacing: 1.0),
                               ),
+                              const SizedBox(height: 5),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   Text('\$${widget.price!}', style: priceStyle),
-                                  const FavoriteAnimation(),
+                                  Consumer<Favoriteprovider>(
+                                    builder: (context, value, child) => InkWell(
+                                        onTap: () {
+                                          if (value.favoriteList
+                                              .contains(widget.index)) {
+                                            value.remove(widget.index);
+                                            
+                                          } else {
+                                            value.addBook(widget.index);
+                                            print('${value.favoriteList}');
+                                          }
+                                        },
+                                        child: const FavoriteIcon()),
+                                  ),
                                 ],
                               ),
                             ],

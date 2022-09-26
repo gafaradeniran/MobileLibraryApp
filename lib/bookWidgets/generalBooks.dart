@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:mylibrary/classes/ratingWidget.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
 import 'package:mylibrary/innerPages/freeInfoPage.dart';
-
 
 class GeneralBooks extends StatefulWidget {
   const GeneralBooks({Key? key}) : super(key: key);
@@ -29,12 +29,12 @@ class _GeneralBooksState extends State<GeneralBooks> {
                   MaterialPageRoute(
                       builder: (_) => FreeInfoPage(
                             index: index,
-                            author: generalBooks[index].author,
-                            bookTitle: generalBooks[index].bookTitle,
-                            description: generalBooks[index].description,
-                            img: generalBooks[index].img,
-                            pages: generalBooks[index].pages,
-                            rating: generalBooks[index].rating,
+                            author: allBooks[index].author,
+                            bookTitle: allBooks[index].bookTitle,
+                            description: allBooks[index].description,
+                            img: allBooks[index].img,
+                            pages: allBooks[index].pages,
+                            rating: allBooks[index].rating,
                           )));
             });
           },
@@ -44,22 +44,7 @@ class _GeneralBooksState extends State<GeneralBooks> {
               ListTile(
                 leading: Image.asset(generalBooks[index].img),
                 title: Text(generalBooks[index].bookTitle),
-                subtitle: RatingBar.builder(
-                  initialRating: generalBooks[index].rating,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  itemSize: 20,
-                  itemPadding: const EdgeInsets.symmetric(horizontal: 1.0),
-                  itemBuilder: (context, _) => const Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
-                ),
+                subtitle: Rating(rating: generalBooks[index].rating),
                 trailing: IconButton(
                   onPressed: () {
                     Navigator.push(
@@ -67,12 +52,12 @@ class _GeneralBooksState extends State<GeneralBooks> {
                         MaterialPageRoute(
                             builder: (_) => FreeInfoPage(
                                   index: index,
-                                  author: generalBooks[index].author,
-                                  bookTitle: generalBooks[index].bookTitle,
-                                  description: generalBooks[index].description,
-                                  img: generalBooks[index].img,
-                                  pages: generalBooks[index].pages,
-                                  rating: generalBooks[index].rating,
+                                  author: allBooks[index].author,
+                                  bookTitle: allBooks[index].bookTitle,
+                                  description: allBooks[index].description,
+                                  img: allBooks[index].img,
+                                  pages: allBooks[index].pages,
+                                  rating: allBooks[index].rating,
                                 )));
                   },
                   icon: const Icon(
