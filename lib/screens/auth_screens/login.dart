@@ -20,7 +20,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController? _email, _password;
+  late TextEditingController _email, _password;
   bool isLoading = false;
   bool isGoogle = false;
   bool _isObscure = true;
@@ -92,9 +92,10 @@ class _LoginState extends State<Login> {
                           children: [
                             CustomTextField(
                                 controller: _email,
+                                label: 'email address',
                                 keyboardType: TextInputType.emailAddress,
                                 onSaved: (value) {
-                                  _email!.text = value!;
+                                  _email.text = value!;
                                 },
                                 validator: (value) {
                                   if (value!.isEmpty) {
@@ -104,31 +105,35 @@ class _LoginState extends State<Login> {
                                   }
                                 }),
                             const SizedBox(height: 20),
-                            CustomTextField(
-                                controller: _password,
-                                obscureText: _isObscure,
-                                hintText: 'Password',
-                                labelText: 'Password',
-                                prefixIcon: const Icon(Icons.lock),
-                                suffixIcon: IconButton(
-                                    icon: Icon(_isObscure
-                                        ? Icons.visibility
-                                        : Icons.visibility_off),
-                                    onPressed: () {
-                                      setState(() {
-                                        _isObscure = !_isObscure;
-                                      });
-                                    }),
-                                onSaved: (value) {
-                                  _password!.text = value!;
-                                },
-                                validator: (value) {
-                                  if (value!.isEmpty) {
-                                    return "password field can't be empty";
-                                  } else {
-                                    return null;
-                                  }
-                                }),
+                            SizedBox(
+                              height: 50,
+                              child: TextFormField(
+                                  controller: _password,
+                                  obscureText: _isObscure,
+                                  decoration: InputDecoration(
+                                    labelText: 'Password',
+                                    suffixIcon: IconButton(
+                                        icon: Icon(_isObscure
+                                            ? Icons.visibility
+                                            : Icons.visibility_off),
+                                        onPressed: () {
+                                          setState(() {
+                                            _isObscure = !_isObscure;
+                                          });
+                                        }),
+                                  ),
+                                  keyboardType: TextInputType.visiblePassword,
+                                  onSaved: (value) {
+                                    _password.text = value!;
+                                  },
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "password field can't be empty";
+                                    } else {
+                                      return null;
+                                    }
+                                  }),
+                            ),
                             const SizedBox(height: 8),
                             Align(
                               alignment: Alignment.centerRight,
@@ -154,7 +159,7 @@ class _LoginState extends State<Login> {
                                 ? const CircularProgressIndicator()
                                 : myButtons('SIGN IN', () {
                                     if (_formKey.currentState!.validate()) {
-                                      signIn(_email!.text, _password!.text);
+                                      signIn(_email.text, _password.text);
                                     }
                                   }),
                             Row(
@@ -183,14 +188,14 @@ class _LoginState extends State<Login> {
                                 ? const CircularProgressIndicator()
                                 : GestureDetector(
                                     onTap: () {
-                                      startLoading();
+                                      googleLoading();
                                       try {
                                         Authentication.signInWithGoogle(
                                             context);
                                       } on PlatformException catch (e) {
                                         if (e.code ==
                                             GoogleSignIn.kNetworkError) {
-                                          stopLoading();
+                                          googleLoading();
                                           Fluttertoast.showToast(
                                               msg:
                                                   "A network error has occurred.");
@@ -286,13 +291,18 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     super.dispose();
-    _email!.dispose();
-    _password!.dispose();
+    _email.dispose();
+    _password.dispose();
   }
 
   void startLoading() {
     setState(() {
       isLoading = true;
+    });
+  }
+
+  void googleLoading() {
+    setState(() {
       isGoogle = true;
     });
   }

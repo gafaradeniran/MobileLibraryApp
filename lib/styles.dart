@@ -17,3 +17,5 @@ final TextStyle priceStyle = GoogleFonts.poppins(
     fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white);
 final TextStyle descStyle2 = GoogleFonts.poppins(
     fontSize: 18, fontWeight: FontWeight.normal, color: Colors.black);
+final TextStyle profileStyle = GoogleFonts.poppins(
+    fontSize: 16, fontWeight: FontWeight.bold,);

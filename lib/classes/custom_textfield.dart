@@ -1,46 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController? controller;
-  final bool? obscureText;
-  final String? hintText, labelText;
+  final TextEditingController controller;
+  final String? label;
+  final List<TextInputFormatter>? inputFormatters;
   final Widget? prefixIcon, suffixIcon;
   final String? Function(String?)? validator;
   final void Function(String?)? onSaved;
   final TextInputType? keyboardType;
   const CustomTextField({
     Key? key,
-    this.controller,
-    this.obscureText,
-    this.hintText,
-    this.labelText,
+    required this.controller,
+    this.label,
     this.prefixIcon,
     this.suffixIcon,
     this.keyboardType,
     this.onSaved,
-    this.validator,
+    this.validator, this.inputFormatters,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: 50,
       child: TextFormField(
         controller: controller,
         autofocus: false,
-        obscureText: obscureText!,
         keyboardType: keyboardType,
+        inputFormatters: [],
         decoration: InputDecoration(
-          hintText: hintText,
-          hintStyle: const TextStyle(color: Colors.purple),
-          labelText: labelText,
+          labelText: label,
           prefix: prefixIcon,
           suffixIcon: suffixIcon,
           labelStyle: const TextStyle(color: Colors.black),
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
+          // border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+          // focusedBorder: OutlineInputBorder(
+          //   borderRadius: BorderRadius.circular(20.0),
+          // ),
           fillColor: Colors.white,
         ),
         onSaved: onSaved,

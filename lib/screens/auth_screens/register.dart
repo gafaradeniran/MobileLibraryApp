@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:mylibrary/classes/button.dart';
 import 'package:mylibrary/classes/custom_textfield.dart';
-import 'package:mylibrary/firebase_model/firebase_methods.dart';
 import 'package:mylibrary/screens/auth_screens/login.dart';
 import 'package:mylibrary/styles.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -18,13 +18,14 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState extends State<Registration> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController? _fullname, _email, _password, _verifyPass;
+  late TextEditingController _fullname, _email, _password, _verifyPass;
   final List<String> departments = [
     'Science',
     'Art',
     'Commercial',
   ];
   String? selectedValue;
+  String defaultValue = "select department";
   bool agree = false;
   bool isLoading = false;
   bool _isObscure = true;
@@ -73,11 +74,13 @@ class _RegistrationState extends State<Registration> {
                       children: [
                         CustomTextField(
                           controller: _fullname,
+                          label: 'Full name',
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(r'a-zA-Z!@$%_-".'),
+                          ],
                           keyboardType: TextInputType.text,
                           validator: (value) {
-                            if (value == null ||
-                                value is num ||
-                                value is double) {
+                            if (value!.isEmpty) {
                               return 'name must not be empty and should be in letters';
                             } else {
                               return null;
@@ -90,26 +93,27 @@ class _RegistrationState extends State<Registration> {
                               .map((item) => DropdownMenuItem<String>(
                                   value: item, child: Text(item)))
                               .toList(),
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(25),
-                              borderSide: const BorderSide(
-                                  color: Colors.grey, width: 1.5),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            isDense: true,
-                          ),
+                          // decoration: InputDecoration(
+                          //   enabledBorder: OutlineInputBorder(
+                          //     borderRadius: BorderRadius.circular(25),
+                          //     borderSide: const BorderSide(
+                          //         color: Colors.grey, width: 1.5),
+                          //   ),
+                          //   focusedBorder: OutlineInputBorder(
+                          //       borderRadius: BorderRadius.circular(20)),
+                          //   isDense: true,
+                          // ),
                           onChanged: (String? newValue) {
                             setState(() {
                               selectedValue = newValue;
                             });
+                            print(newValue);
                           },
                           onSaved: (selectedValue) {},
                           icon: const Icon(Icons.arrow_drop_down,
                               color: Colors.black, size: 30),
-                          hint: const Text('Select Department',
-                              style: TextStyle(fontSize: 16)),
+                          hint: Text(defaultValue,
+                              style: const TextStyle(fontSize: 14)),
                           validator: (value) {
                             if (value == null) {
                               return 'please select your department!';
@@ -121,10 +125,7 @@ class _RegistrationState extends State<Registration> {
                         const SizedBox(height: 8),
                         CustomTextField(
                           controller: _email,
-                          hintText: 'email address',
-                          labelText: 'E-mail',
-                          prefixIcon: const Icon(Icons.email_outlined,
-                              color: Colors.black),
+                          label: 'E-mail',
                           keyboardType: TextInputType.emailAddress,
                           validator: (value) {
                             Pattern epattern =
@@ -138,54 +139,64 @@ class _RegistrationState extends State<Registration> {
                           },
                         ),
                         const SizedBox(height: 8),
-                        CustomTextField(
-                            obscureText: _isObscure,
-                            controller: _password,
-                            hintText: 'passwords',
-                            labelText: 'Password',
-                            suffixIcon: IconButton(
-                                icon: Icon(_isObscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscure = !_isObscure;
-                                  });
-                                }),
-                            keyboardType: TextInputType.visiblePassword,
-                            validator: (value) {
-                              Pattern pattern =
-                                  r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
-                              RegExp regex = RegExp(pattern.toString());
-                              if (!regex.hasMatch(value!)) {
-                                return 'Minimum of 8 chars, 1 letter and 1 number';
-                              }
-                              return null;
-                            }),
-                        CustomTextField(
-                            obscureText: _isObscure,
-                            controller: _verifyPass,
-                            hintText: 'verify passwords',
-                            labelText: 'verify Password',
-                            suffixIcon: IconButton(
-                                icon: Icon(_isObscure
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscure = !_isObscure;
-                                  });
-                                }),
-                            keyboardType: TextInputType.visiblePassword,
-                            validator: (value) {
-                              if (value != null &&
-                                  value.isEmpty &&
-                                  value != _password!.text) {
-                                return 'passwords donot match';
-                              } else {
+                        SizedBox(
+                          height: 50,
+                          child: TextFormField(
+                              controller: _password,
+                              obscureText: _isObscure,
+                              decoration: InputDecoration(
+                                hintText: 'passwords',
+                                labelText: 'Password',
+                                suffixIcon: IconButton(
+                                    icon: Icon(_isObscure
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    }),
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (value) {
+                                Pattern pattern =
+                                    r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$";
+                                RegExp regex = RegExp(pattern.toString());
+                                if (!regex.hasMatch(value!)) {
+                                  return 'Minimum of 8 chars, 1 letter and 1 number';
+                                }
                                 return null;
-                              }
-                            }),
+                              }),
+                        ),
+                        const SizedBox(height: 8),
+                        SizedBox(
+                          height: 50,
+                          child: TextFormField(
+                              controller: _verifyPass,
+                              obscureText: _isObscure,
+                              decoration: InputDecoration(
+                                hintText: 'confirm password',
+                                labelText: 're-type password',
+                                suffixIcon: IconButton(
+                                    icon: Icon(_isObscure
+                                        ? Icons.visibility
+                                        : Icons.visibility_off),
+                                    onPressed: () {
+                                      setState(() {
+                                        _isObscure = !_isObscure;
+                                      });
+                                    }),
+                              ),
+                              keyboardType: TextInputType.visiblePassword,
+                              validator: (value) {
+                                if (value!.isEmpty &&
+                                    value != _password.text) {
+                                  return 'passwords donot match';
+                                } else {
+                                  return null;
+                                }
+                              }),
+                        ),
                         Row(
                           children: [
                             Checkbox(
@@ -213,7 +224,7 @@ class _RegistrationState extends State<Registration> {
                                 'SIGN UP',
                                 () {
                                   if (_formKey.currentState!.validate()) {
-                                    register(_email!.text, _password!.text);
+                                    register(_email.text, _password.text);
                                   }
                                 },
                               ),
@@ -263,10 +274,10 @@ class _RegistrationState extends State<Registration> {
   @override
   void dispose() {
     super.dispose();
-    _fullname!.dispose();
-    _email!.dispose();
-    _password!.dispose();
-    _verifyPass!.dispose();
+    _fullname.dispose();
+    _email.dispose();
+    _password.dispose();
+    _verifyPass.dispose();
   }
 
   Future<void> register(String email, String password) async {
@@ -280,19 +291,21 @@ class _RegistrationState extends State<Registration> {
         try {
           await db.collection("users").doc(value.user!.uid).set({
             "uid": value.user!.uid,
-            "email": _email!.text,
-            "fullname": _fullname!.text,
+            "email": _email.text,
+            "fullname": _fullname.text,
             "type": "users",
-            "department": departments, //dropdown
+            "department": selectedValue,
             "date_created": DateTime.now().toString(),
+            "profile_pic" : "",
           }).then((v) {
             storedata.putAll({
               "uid": value.user!.uid,
-              "email": _email!.text,
-              "fullname": _fullname!.text,
+              "email": _email.text,
+              "fullname": _fullname.text,
               "type": "users",
-              "department": departments, //dropdown
+              "department": selectedValue,
               "date_created": DateTime.now().toString(),
+              "profile_pic" : "",
             });
             stopLoading();
             Fluttertoast.showToast(msg: 'Registration successful.');
@@ -331,5 +344,12 @@ class _RegistrationState extends State<Registration> {
     setState(() {
       isLoading = false;
     });
+  }
+
+  getDropDownValue() {
+    setState(() {
+      selectedValue = defaultValue;
+    });
+    return selectedValue;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,10 +21,11 @@ class _LibraryBooksState extends State<LibraryBooks>
   ScrollController _scrollController = ScrollController();
   TabController? _tabController;
   int selectedMenu = 0;
-  // final user = FirebaseAuth.instance.currentUser!;
-  User? user = FirebaseAuth.instance.currentUser;
 
+  User? user = FirebaseAuth.instance.currentUser;
   List<String> categories = ['All', 'General', 'Science', 'Art', 'Commercial'];
+  final db = FirebaseFirestore.instance;
+  String fullname = "", profilePic = "";
 
   @override
   void initState() {
@@ -42,6 +44,15 @@ class _LibraryBooksState extends State<LibraryBooks>
 
   @override
   Widget build(BuildContext context) {
+    final docRef = db.collection("users").doc(user!.uid);
+    docRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        fullname = data["fullname"];
+        profilePic = data["profile_pic"];
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -76,10 +87,9 @@ class _LibraryBooksState extends State<LibraryBooks>
             ),
             CircleAvatar(
               radius: 18,
-              backgroundImage: NetworkImage('${user?.photoURL}'),
-              onBackgroundImageError: (e, s) {
-                debugPrint('image issue, $e,$s');
-              },
+              child: profilePic.isEmpty
+                  ? Icon(Icons.person)
+                  : Image.network(profilePic),
             ),
             const SizedBox(width: 12),
           ],

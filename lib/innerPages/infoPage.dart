@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
 import 'package:mylibrary/classes/favorite_icon.dart';
+import 'package:mylibrary/classes/ratingWidget.dart';
 import 'package:mylibrary/providers/favoriteProvider.dart';
 import 'package:mylibrary/styles.dart';
 import 'package:provider/provider.dart';
@@ -100,23 +101,9 @@ class _InfoPageState extends State<InfoPage> {
                                 widget.author,
                                 style: descStyle,
                               ),
-                              RatingBar.builder(
-                                initialRating: widget.rating,
-                                direction: Axis.horizontal,
-                                itemCount: 5,
-                                itemSize: 20,
-                                itemPadding:
-                                    const EdgeInsets.symmetric(horizontal: 2.0),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
-                                ),
-                                onRatingUpdate: (rating) {
-                                  print(rating);
-                                },
-                              ),
+                              Rating(rating: widget.rating),
                               Text(
-                                widget.isbn!,
+                                '${widget.isbn}',
                                 style: GoogleFonts.poppins(
                                     fontSize: 15,
                                     color: Colors.white,
@@ -127,21 +114,21 @@ class _InfoPageState extends State<InfoPage> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text('\$${widget.price!}', style: priceStyle),
-                                  Consumer<Favoriteprovider>(
-                                    builder: (context, value, child) => InkWell(
-                                        onTap: () {
-                                          if (value.favoriteList
-                                              .contains(widget.index)) {
-                                            value.remove(widget.index);
+                                  Text('\$${widget.price}', style: priceStyle),
+                                  // Consumer<Favoriteprovider>(
+                                  //   builder: (context, value, child) => InkWell(
+                                  //       onTap: () {
+                                  //         if (value.favoriteList
+                                  //             .contains(widget.index)) {
+                                  //           value.remove(widget.index);
                                             
-                                          } else {
-                                            value.addBook(widget.index);
-                                            print('${value.favoriteList}');
-                                          }
-                                        },
-                                        child: const FavoriteIcon()),
-                                  ),
+                                  //         } else {
+                                  //           value.addBook(widget.index);
+                                  //           print('${value.favoriteList}');
+                                  //         }
+                                  //       },
+                                  //       child: const FavoriteIcon()),
+                                  // ),
                                 ],
                               ),
                             ],

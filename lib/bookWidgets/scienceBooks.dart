@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:mylibrary/classes/ratingWidget.dart';
 import 'package:mylibrary/classes/bookmodel.dart';
-import 'package:mylibrary/innerPages/freeInfoPage.dart';
+import 'package:mylibrary/innerPages/freeInfo_page.dart';
 
 class ScienceBooks extends StatefulWidget {
   const ScienceBooks({Key? key}) : super(key: key);
