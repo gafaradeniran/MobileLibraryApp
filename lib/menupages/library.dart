@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mylibrary/bookWidgets/artBooks.dart';
-import 'package:mylibrary/bookWidgets/allBooks.dart';
+import 'package:mylibrary/bookWidgets/art_books.dart';
 import 'package:mylibrary/bookWidgets/commBooks.dart';
-import 'package:mylibrary/bookWidgets/generalBooks.dart';
+import 'package:mylibrary/bookWidgets/general_books.dart';
 import 'package:mylibrary/bookWidgets/scienceBooks.dart';
 import 'package:mylibrary/screens/homeScreen.dart';
 
@@ -23,9 +22,9 @@ class _LibraryBooksState extends State<LibraryBooks>
   int selectedMenu = 0;
 
   User? user = FirebaseAuth.instance.currentUser;
-  List<String> categories = ['All', 'General', 'Science', 'Art', 'Commercial'];
+  List<String> categories = ['General', 'Science', 'Art', 'Commercial'];
   final db = FirebaseFirestore.instance;
-  String fullname = "", profilePic = "";
+  String profilePic = "";
 
   @override
   void initState() {
@@ -45,10 +44,9 @@ class _LibraryBooksState extends State<LibraryBooks>
   @override
   Widget build(BuildContext context) {
     final docRef = db.collection("users").doc(user!.uid);
-    docRef.get().then(
-      (DocumentSnapshot doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        fullname = data["fullname"];
+    docRef.snapshots().listen(
+      (event) {
+        final data = event.data() as Map<String, dynamic>;
         profilePic = data["profile_pic"];
       },
       onError: (e) => print("Error getting document: $e"),
@@ -85,12 +83,18 @@ class _LibraryBooksState extends State<LibraryBooks>
                 //     MaterialPageRoute(builder: (_) => const SearchField()));
               },
             ),
-            CircleAvatar(
-              radius: 18,
-              child: profilePic.isEmpty
-                  ? Icon(Icons.person)
-                  : Image.network(profilePic),
-            ),
+            StreamBuilder<Object>(
+                stream: db.collection("users").doc(user!.uid).snapshots(),
+                builder: (context, snapshot) {
+                  return CircleAvatar(
+                    radius: 18,
+                    backgroundImage: profilePic == null
+                                  ? null
+                                  : NetworkImage(
+                                      profilePic, 
+                                    ),
+                  );
+                }),
             const SizedBox(width: 12),
           ],
           elevation: 0,
@@ -129,17 +133,20 @@ class _LibraryBooksState extends State<LibraryBooks>
                       topRight: Radius.circular(25)),
                 ),
                 child: SizedBox(
+                  
                   height: MediaQuery.of(context).size.height,
-                  child: TabBarView(
-                    controller: _tabController,
-                    physics: const ScrollPhysics(),
-                    children: const [
-                      AllBooks(),
-                      GeneralBooks(),
-                      ScienceBooks(),
-                      ArtBooks(),
-                      CommercialBooks(),
-                    ],
+                  child:  TabBarView(
+                        controller: _tabController,
+                        physics: const ScrollPhysics(),
+                        children: const [
+                          // AllBooks(),
+                          GeneralBooks(),
+                          ScienceBooks(),
+                          ArtBooks(),
+                          CommercialBooks(),
+                        ],
+                      
+                    
                   ),
                 )),
           ),

@@ -76,7 +76,8 @@ class _RegistrationState extends State<Registration> {
                           controller: _fullname,
                           label: 'Full name',
                           inputFormatters: [
-                            FilteringTextInputFormatter.allow(r'a-zA-Z!@$%_-".'),
+                            FilteringTextInputFormatter.allow(
+                                r'a-zA-Z!@$%_-".'),
                           ],
                           keyboardType: TextInputType.text,
                           validator: (value) {
@@ -189,8 +190,7 @@ class _RegistrationState extends State<Registration> {
                               ),
                               keyboardType: TextInputType.visiblePassword,
                               validator: (value) {
-                                if (value!.isEmpty &&
-                                    value != _password.text) {
+                                if (value!.isEmpty && value != _password.text) {
                                   return 'passwords donot match';
                                 } else {
                                   return null;
@@ -296,7 +296,7 @@ class _RegistrationState extends State<Registration> {
             "type": "users",
             "department": selectedValue,
             "date_created": DateTime.now().toString(),
-            "profile_pic" : "",
+            "profile_pic": "",
           }).then((v) {
             storedata.putAll({
               "uid": value.user!.uid,
@@ -305,7 +305,7 @@ class _RegistrationState extends State<Registration> {
               "type": "users",
               "department": selectedValue,
               "date_created": DateTime.now().toString(),
-              "profile_pic" : "",
+              "profile_pic": "",
             });
             stopLoading();
             Fluttertoast.showToast(msg: 'Registration successful.');

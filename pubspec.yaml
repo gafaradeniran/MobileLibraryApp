@@ -52,6 +52,13 @@ dependencies:
   hive_flutter: ^1.1.0
   hive_generator: ^1.1.3
   build_runner: ^2.2.1
+  image_picker: ^0.8.6
+  firebase_storage: ^10.3.11
+  syncfusion_flutter_pdfviewer: ^20.3.50
+  path_provider: ^2.0.11
+  flutter_pdfview: ^1.2.5
+  percent_indicator: ^4.2.0
+  flutter_downloader: ^1.8.4
   
   
 

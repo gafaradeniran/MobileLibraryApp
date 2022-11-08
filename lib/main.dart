@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:mylibrary/firebase_options.dart';
 import 'package:mylibrary/providers/favoriteProvider.dart';
@@ -10,10 +11,10 @@ import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(debug: true, ignoreSsl: true);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
   await Hive.openBox('darkModeBox');
-  await Hive.openBox('ratingBox');
   await Hive.openBox('userDetails');
   runApp(const MyApp());
 }
@@ -46,15 +47,7 @@ class _MyAppState extends State<MyApp> {
               themeMode: getValue ? ThemeMode.light : ThemeMode.dark,
               darkTheme: ThemeData.dark(),
               theme: ThemeData(),
-              home: _user != null ? const WelcomeScreen() : const Login(),
-              // if (_user == null){
-              //   return WelcomeScreen();
-              // }else if(_user isSignedIn){
-              //   return ParentScreen();
-              // }
-              // else{
-              //   return Login();
-              // }
+              home: _user != null ? const Login() : const WelcomeScreen(),
               debugShowCheckedModeBanner: false,
               // initialRoute: '/',
               // routes: MyRoutes().routesettings,

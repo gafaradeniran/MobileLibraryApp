@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 
 class BookDetails {
   final String img, bookTitle, author, description;
@@ -33,339 +32,79 @@ class BookDetails {
 
 //shuffles between the category lists
 List<BookDetails> allBooks = [
-  ...scienceBooks,
-  ...comBooks,
-  ...artBooks,
-  ...generalBooks
+  // ...scienceBooks,
+  // ...comBooks,
+  // ...artBooks,
+  // ...generalBooks
 ];
 
-//books in the science category
-List<BookDetails> scienceBooks = [
-  BookDetails(
-      index: 0,
-      img: 'assets/science/calChem.jpg',
-      bookTitle: 'Calculations in Chemistry with Practicals',
-      author: 'Oyebanji A. O',
-      rating: 3.0,
-      description:
-          'Calculations in chemistry with practicals for Senior Secondary School 1, 2, 3. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 214),
-  BookDetails(
-      index: 1,
-      img: 'assets/science/classicBio.jpg',
-      bookTitle: 'Classic Biology',
-      author: 'Nneka Okechukwu',
-      rating: 3.0,
-      description:
-          'Classical Biology for Senior Secondary School 1, 2, 3. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 350),
-  BookDetails(
-      index: 2,
-      img: 'assets/science/comp2.jpg',
-      bookTitle: 'Computer Studies for SSS 1',
-      author: 'Oyebanji A. O et al',
-      rating: 4.0,
-      description:
-          'Computer Studies for Senior Secondary School 1. This is a recomended text for students in the first year of Senior Secondary School. All concepts are explained in clear terms and illustrations',
-      pages: 149),
-  BookDetails(
-      index: 3,
-      img: 'assets/science/pracbiology.jpg',
-      bookTitle: 'Vital Practical Biology',
-      author: 'Oyebanji A. O',
-      rating: 2.0,
-      description:
-          'Vital Practical Biology for Senior Secondary School 1, 2, 3. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 350),
-  BookDetails(
-      index: 4,
-      img: 'assets/science/lamladPhysics.jpg',
-      bookTitle: "Lamlad's SSCE & UTME physics",
-      author: 'Oyebanji A. O',
-      rating: 5.0,
-      description:
-          'Lamlad UTME & SSCE Physics is an essential handbook for Senior Secondary School students and A level students preparing for JAMB and Post UTME exams.',
-      pages: 95),
-  BookDetails(
-      index: 5,
-      img: 'assets/science/modernBio.jpg',
-      bookTitle: 'Modern Biology for Senior Secondary Schools',
-      author: 'Authors et all',
-      rating: 3.0,
-      description:
-          'Modern Biology for Senior Secondary School 1, 2, 3. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 570),
-  BookDetails(
-      index: 6,
-      img: 'assets/science/techDraw.jpg',
-      bookTitle: 'Technical drawing for Senior Certificate and G.C.E',
-      author: 'J. N. Green',
-      rating: 4.0,
-      description:
-          'Technical Drawing for Senior Certificate and G.C.E. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 120),
-  BookDetails(
-      index: 7,
-      img: 'assets/science/sschem2.jpg',
-      bookTitle: 'Senior Secondary Chemistry 2',
-      author: 'S. T. Ayuba et al',
-      rating: 3.0,
-      description:
-          'Senior Secobadry Chemistry for Senior Secondary School 2. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 100),
-  BookDetails(
-      index: 8,
-      img: 'assets/science/orgChem.jpg',
-      bookTitle: 'Organic Chemistry',
-      author: 'Jonathan Clayden & Staurt Wareen',
-      rating: 4.0,
-      description:
-          'Organic Chemistry is a comprehensive text for A-level and O-level students. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
-      pages: 200),
-  BookDetails(
-      index: 9,
-      img: 'assets/science/prinPhysics.jpg',
-      bookTitle: 'Principles of Physics',
-      author: 'M. Nelkon',
-      rating: 2.0,
-      description:
-          'Principles of Physics for Senior Secondary Schools and A-level students. It is a must have for science students who intend to sit and pass their final examinations (WASCE) and JAMB once',
-      pages: 450),
-];
-//books in the Commercial category
-List<BookDetails> comBooks = [
-  BookDetails(
-      index: 10,
-      img: 'assets/commercial/acc1.png',
-      bookTitle: 'Introduction to Financial Accounting',
-      author: 'H. Dauderis & D. Annand',
-      rating: 2.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 200),
-  BookDetails(
-      index: 11,
-      img: 'assets/commercial/buyAcc.png',
-      bookTitle: 'Principles of Accounting Vol. 2',
-      author: 'Manegerial Accounting',
-      rating: 2.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 150),
-  BookDetails(
-      index: 12,
-      img: 'assets/commercial/compComm.jpg',
-      bookTitle: 'Comprehensive Certificate Commerce for SS 2',
-      author: 'H. Michael',
-      rating: 3.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 180),
-  BookDetails(
-      index: 13,
-      img: 'assets/commercial/compComm1.jpg',
-      bookTitle: 'Comprehensive Commerce for Senior Sec Schools',
-      author: 'D. Annand',
-      rating: 3.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 120),
-  BookDetails(
-      index: 14,
-      img: 'assets/commercial/introAcc.jpg',
-      bookTitle: 'Introducing Accounting for A S',
-      author: 'Ian Harrison',
-      rating: 4.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 111),
-  BookDetails(
-      index: 15,
-      img: 'assets/commercial/manAcc.jpg',
-      bookTitle: 'Financial Accounting for Management',
-      author: 'Ambrish Grupto',
-      rating: 3.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 213),
-  BookDetails(
-      index: 16,
-      img: 'assets/commercial/moreComm1.jpg',
-      bookTitle: 'More Commerce TextBook for Senior Sec. Schools',
-      author: 'Nwogu Kevin',
-      rating: 2.0,
-      description:
-          'Lorem Ipsum Lorem Iosum Lorem Ipsum. Every Lorem ipsum in lorem ipsum for lorem ipsum',
-      pages: 197),
-];
 //Books in the art category
-List<BookDetails> artBooks = [
-  BookDetails(
-      index: 17,
-      img: 'assets/art/govt1.jpg',
-      bookTitle: 'Senior Seconadry School Goverment Book 1',
-      author: 'Oyebanji A. O',
-      rating: 2.0,
-      description:
-          'Government for Senior Secondary School 1. It is an awesmome introductory text for senior secondary school students studying Goverment as a subject for the first time',
-      pages: 157),
-  BookDetails(
-      index: 18,
-      img: 'assets/art/lit-eng1.jpg',
-      bookTitle: 'The Life Changer',
-      author: 'Khadija Abubakar',
-      rating: 4.0,
-      description:
-          'The Life Changer is a literart material recommended by the JAMB for senior secondary school students and A-level students alike. This is must read from an established author- Khadija Abubakar',
-      pages: 237),
-  BookDetails(
-      index: 19,
-      img: 'assets/art/litEng1.jpg',
-      bookTitle: 'Literature Exam Questions & Answers for SS3',
-      author: 'Tost Streams',
-      rating: 3.0,
-      description:
-          'Literature Exam Quetsions & Answers for senior secondary school students contains compiled series of past questions and answers from different Examination bodies',
-      pages: 237),
-  BookDetails(
-      index: 20,
-      img: 'assets/art/litEng2.jpg',
-      bookTitle: 'Sleep Well My Lady',
-      author: 'Kwei Quartey',
-      rating: 4.0,
-      description:
-          'This 300 page novel is one of the bestsellers of 2020. It is truly a case of an African story written by an Africans for Africans and the rest of the world',
-      pages: 300),
-  BookDetails(
-      index: 21,
-      img: 'assets/art/pqGovt.jpg',
-      bookTitle: 'Government Exam Questions & Answers for SS1',
-      author: 'Tost Streams',
-      rating: 3.0,
-      description:
-          'Government Exam Quetsions & Answers for senior secondary school 1 contains relevant past questions and answers to aid learning the subject',
-      pages: 237),
-  BookDetails(
-      index: 22,
-      img: 'assets/art/secedu1.jpg',
-      bookTitle: 'Security Education for SS1',
-      author: 'Dayo Oyetunji et al',
-      rating: 3.0,
-      description:
-          'Security Education for senior secondary school 1. A good text on security studies for SS1 students',
-      pages: 237),
-  BookDetails(
-      index: 23,
-      img: 'assets/art/civic1.jpg',
-      bookTitle: 'Past Leaders of Nigeria',
-      author: 'Anonymous Author',
-      rating: 3.0,
-      description:
-          'Past Leaders of Nigeria is a must read for every good citizen of the country',
-      pages: 237),
-];
-//list of books in the general category
-List<BookDetails> generalBooks = [
-  BookDetails(
-      index: 24,
-      img: 'assets/general/buyYoruba1.jpg',
-      bookTitle: 'Yoruba Myths',
-      author: 'Ulli Beier',
-      rating: 3.0,
-      description:
-          'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
-      pages: 257),
-  BookDetails(
-      index: 25,
-      img: 'assets/general/MathDic.jpg',
-      bookTitle: 'Concise Dictionary of Mathematics',
-      author: 'Oxford Books',
-      rating: 3.0,
-      description:
-          'A concise reference materials for lovers and learners of Mathematics. It is a very good companion for students who intend to build a career in Engineering and Physical Science',
-      pages: 1300),
-  BookDetails(
-      index: 26,
-      img: 'assets/general/oxfordEng3.jpg',
-      bookTitle: 'New Oxford Secondary English Course for SS3',
-      author: 'Oxford Books',
-      rating: 4.0,
-      description:
-          'The New Oxford Secondary English Course (NOSEC) series has found its way into the curricular of seconadry schools in Nigeria owing to its invaluable content',
-      pages: 990),
-  BookDetails(
-      index: 27,
-      img: 'assets/general/oralEng.jpg',
-      bookTitle: 'Oral English Pedagogue',
-      author: 'Opeifa Olasunkanmi',
-      rating: 4.0,
-      description:
-          'The book, Oral English Pedagogue demystifies the usual hitch students experience while learning oral English',
-      pages: 990),
-  BookDetails(
-      index: 28,
-      img: 'assets/general/compEcons.jpg',
-      bookTitle: 'Comprehensive Economics for Senior Secondary Schools',
-      author: 'Johnson Anyaele',
-      rating: 5.0,
-      description:
-          'The New Oxford Secondary English Course (NOSEC) series has found its way into the curricular of seconadry schools in Nigeria owing to its invaluable content',
-      pages: 990),
-  BookDetails(
-      index: 29,
-      img: 'assets/general/ecoSenior.jpg',
-      bookTitle: 'Economics for Senior Secondary Schools',
-      author: 'Gbenga Babalola',
-      rating: 5.0,
-      description:
-          'Despite having a nice cover and receiving good reviews, it was not selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.',
-      pages: 990),
-  BookDetails(
-      index: 30,
-      img: 'assets/general/effectMath1.jpg',
-      bookTitle: 'Effective Mathematics for Senior Secondary Schools Book 1',
-      author: 'O. Popoola, M. Ejike, C. N. Osendu, & A. Adeniyan',
-      rating: 5.0,
-      description:
-          'Despite having a nice cover and receiving good reviews, it was not selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.',
-      pages: 990),
-  BookDetails(
-      index: 31,
-      img: 'assets/general/newGen3.jpg',
-      bookTitle: 'New General Mathematics Book 3',
-      author: 'M. F. Macrae, A. O. Kalejaiye et al',
-      rating: 5.0,
-      description:
-          'Despite having a nice cover and receiving good reviews, it was not selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.',
-      pages: 990),
-  BookDetails(
-      index: 32,
-      img: 'assets/general/engMath.jpg',
-      bookTitle: 'Engineering Mathematics',
-      author: 'K. A. Stroud',
-      rating: 5.0,
-      description:
-          'Despite having a nice cover and receiving good reviews, it was not selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.',
-      pages: 990),
-  BookDetails(
-      index: 33,
-      img: 'assets/general/concEnglish2.jpg',
-      bookTitle: 'New Concept English for Senior Sec. Schools Book 2',
-      author: 'Gbenga Babalola',
-      rating: 5.0,
-      description:
-          'Despite having a nice cover and receiving good reviews, it was not selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.',
-      pages: 990),
-  BookDetails(
-      index: 34,
-      img: 'assets/general/alawiye.jpg',
-      bookTitle: 'Alawiye Iwe keji',
-      author: 'J. F. Odunjo',
-      rating: 5.0,
-      description:
-          'Despite having a nice cover and receiving good reviews, it was not selling as many copies as it should have. So we dove into the book description, figured out the flaws, and completely revamped it.',
-      pages: 990),
-];
+// List<BookDetails> artBooks = [
+//   BookDetails(
+//       index: 17,
+//       img: 'assets/art/govt1.jpg',
+//       bookTitle: 'Senior Seconadry School Goverment Book 1',
+//       author: 'Oyebanji A. O',
+//       rating: 2.0,
+//       description:
+//           'Government for Senior Secondary School 1. It is an awesmome introductory text for senior secondary school students studying Goverment as a subject for the first time',
+//       pages: 157),
+//   BookDetails(
+//       index: 18,
+//       img: 'assets/art/lit-eng1.jpg',
+//       bookTitle: 'The Life Changer',
+//       author: 'Khadija Abubakar',
+//       rating: 4.0,
+//       description:
+//           'The Life Changer is a literart material recommended by the JAMB for senior secondary school students and A-level students alike. This is must read from an established author- Khadija Abubakar',
+//       pages: 237),
+//   BookDetails(
+//       index: 19,
+//       img: 'assets/art/litEng1.jpg',
+//       bookTitle: 'Literature Exam Questions & Answers for SS3',
+//       author: 'Tost Streams',
+//       rating: 3.0,
+//       description:
+//           'Literature Exam Quetsions & Answers for senior secondary school students contains compiled series of past questions and answers from different Examination bodies',
+//       pages: 237),
+//   BookDetails(
+//       index: 20,
+//       img: 'assets/art/litEng2.jpg',
+//       bookTitle: 'Sleep Well My Lady',
+//       author: 'Kwei Quartey',
+//       rating: 4.0,
+//       description:
+//           'This 300 page novel is one of the bestsellers of 2020. It is truly a case of an African story written by an Africans for Africans and the rest of the world',
+//       pages: 300),
+//   BookDetails(
+//       index: 21,
+//       img: 'assets/art/pqGovt.jpg',
+//       bookTitle: 'Government Exam Questions & Answers for SS1',
+//       author: 'Tost Streams',
+//       rating: 3.0,
+//       description:
+//           'Government Exam Quetsions & Answers for senior secondary school 1 contains relevant past questions and answers to aid learning the subject',
+//       pages: 237),
+//   BookDetails(
+//       index: 22,
+//       img: 'assets/art/secedu1.jpg',
+//       bookTitle: 'Security Education for SS1',
+//       author: 'Dayo Oyetunji et al',
+//       rating: 3.0,
+//       description:
+//           'Security Education for senior secondary school 1. A good text on security studies for SS1 students',
+//       pages: 237),
+//   BookDetails(
+//       index: 23,
+//       img: 'assets/art/civic1.jpg',
+//       bookTitle: 'Past Leaders of Nigeria',
+//       author: 'Anonymous Author',
+//       rating: 3.0,
+//       description:
+//           'Past Leaders of Nigeria is a must read for every good citizen of the country',
+//       pages: 237),
+// ];
+
 //books to be paid for
 List<BookDetails> paidBooks = [
   BookDetails(
@@ -408,7 +147,7 @@ List<BookDetails> paidBooks = [
       author: 'Oduduwa Oranmiyan',
       rating: 5.0,
       description:
-          'A comprehensive text on beliefs, culture and life of the Yoruba ethnic nationality of SouthWest Nigeria. A very good reference book',
+          'A comprehensive text on language, culture and poems of the Yoruba language. A very good reference book',
       pages: 257,
       isbn: 'ISBN: 978-078-213-243-3',
       price: 400.0),
@@ -452,7 +191,7 @@ List<BookDetails> paidBooks = [
       author: 'Theodore Brown et al',
       rating: 4.0,
       description:
-          'Organic Chemistry is a comprehensive text for A-level and O-level students. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
+          'Lamlad Physics is a comprehensive text for A-level and O-level students. It is a must have for science students who intend to sit and pass their final examinations (WASCE) once',
       pages: 200,
       isbn: 'ISBN: 978-978-213-243-7',
       price: 400.0),

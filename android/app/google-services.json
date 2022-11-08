@@ -9,18 +9,47 @@
       "client_info": {
         "mobilesdk_app_id": "1:661297693723:android:122b2562eccaf55f3364be",
         "android_client_info": {
-          "package_name": "com.example.mylibrary"
+          "package_name": "com.gafar.mylibrary"
         }
       },
       "oauth_client": [
         {
-          "client_id": "661297693723-a1c5787hh3httvkv6depi6afgvjjvnf7.apps.googleusercontent.com",
+          "client_id": "661297693723-klklkmgnc9qhuiuvoqoa612pbf2v4oub.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.mylibrary",
-            "certificate_hash": "1673a2aa2d6606952aa23bed771d0deb79d4c94b"
+            "certificate_hash": "f0fe874d14b12c777cd8770a80709e45824ac893"
           }
         },
+        {
+          "client_id": "661297693723-0orrfkgq76otdtpsnuq9pe296uimog04.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfbQSSyO6E4pPAMWPyjovzFRVQMspp3YQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "661297693723-0orrfkgq76otdtpsnuq9pe296uimog04.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:661297693723:android:a403cbb2b4619d9f3364be",
+        "android_client_info": {
+          "package_name": "com.gafar.mylibrary"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "661297693723-0orrfkgq76otdtpsnuq9pe296uimog04.apps.googleusercontent.com",
           "client_type": 3
