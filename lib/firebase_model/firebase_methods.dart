@@ -30,7 +30,7 @@ class Authentication {
         (value) => Fluttertoast.showToast(msg: "logged out successfully"));
     await GoogleSignIn().signOut().then(
         (value) => Fluttertoast.showToast(msg: "logged out successfully"));
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(builder: (context) => const Login()),
     );
   }

@@ -59,6 +59,7 @@ dependencies:
   flutter_pdfview: ^1.2.5
   percent_indicator: ^4.2.0
   flutter_downloader: ^1.8.4
+  flutter_paystack: ^1.0.6
   
   
 

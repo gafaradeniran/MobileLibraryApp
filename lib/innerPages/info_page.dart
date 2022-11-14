@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mylibrary/classes/button.dart';
-import 'package:mylibrary/classes/ratingWidget.dart';
+import 'package:mylibrary/classes/payment/paystack_payment.dart';
 import 'package:mylibrary/styles.dart';
 
 // details page for the buy books
@@ -29,9 +30,20 @@ class InfoPage extends StatefulWidget {
 
 class _InfoPageState extends State<InfoPage> {
   final db = FirebaseFirestore.instance;
+  User? user = FirebaseAuth.instance.currentUser;
   bool startLoading = false;
+  String fullname = "", email = "";
   @override
   Widget build(BuildContext context) {
+    final docRef = db.collection("users").doc(user?.uid);
+    docRef.snapshots().listen(
+      (event) {
+        final data = event.data() as Map<String, dynamic>;
+        fullname = data["fullname"];
+        email = data["email"];
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
@@ -158,7 +170,11 @@ class _InfoPageState extends State<InfoPage> {
                         ),
                         Align(
                             alignment: Alignment.center,
-                            child: myButtons('Buy Now', () {})),
+                            child: myButtons('Buy Now', () {
+                              PaystackPayment(
+                                      context, widget.price!, email, fullname)
+                                  .chargeAndMakePayment();
+                            })),
                       ],
                     ),
                   ),

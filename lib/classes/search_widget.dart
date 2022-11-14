@@ -1,4 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../innerPages/free_info_page.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({Key? key}) : super(key: key);
@@ -8,38 +12,43 @@ class SearchField extends StatefulWidget {
 }
 
 class _SearchFieldState extends State<SearchField> {
-   List<String> searchs = [
-    // widget.bookTitle,
-    // widget.author,
-    // widget.isbn,
-  ];
+  final db = FirebaseFirestore.instance;
+  // List<DocumentReference> allList = [
+  //   FirebaseFirestore.instance.collection('general').doc(),
+  //   FirebaseFirestore.instance.collection('art').doc(),
+  //   FirebaseFirestore.instance.collection('commercial').doc(),
+  //   FirebaseFirestore.instance.collection('science').doc(),
+  // ];
+  // String query;
+  List searchResult = [];
+  void searchFromFirebase(String query) async {
+    final result = await FirebaseFirestore.instance
+        .collection('science')
+        .where('bookTitle', isGreaterThanOrEqualTo: query)
+        .where('bookTitle', isLessThan: query + 'z')
+        .get();
+    setState(() {
+      searchResult = result.docs.map((e) => e.data()).toList(growable: true);
+    });
+  }
 
-  /// Store search variable to this string variable
-  String searchValue = "";
-
-  TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final searchResult =
-        searchs.where((element) => element.contains(searchValue)).toList();
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Container(
-          height: 45,
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: TextFormField(
+        backgroundColor: Colors.black45,
+        elevation: 0,
+      ),
+      body: Column(
+        children: [
+          TextFormField(
             autofocus: false,
             controller: _searchController,
             textInputAction: TextInputAction.search,
-            onChanged: (value) {
-              setState(() {
-                searchValue = value;
-              });
+            onChanged: (query) {
+              searchFromFirebase(query);
             },
             decoration: InputDecoration(
               labelText: "Search by title,author's name or ISBN",
@@ -52,7 +61,10 @@ class _SearchFieldState extends State<SearchField> {
               suffixIcon: IconButton(
                 icon: const Icon(Icons.clear),
                 onPressed: () {
+                  // query = '';
                   /* Clear the search field */
+                  
+                  
                 },
               ),
               border: OutlineInputBorder(
@@ -66,7 +78,60 @@ class _SearchFieldState extends State<SearchField> {
               fillColor: Colors.white,
             ),
           ),
-        ),
+          Expanded(
+              child: ListView.builder(
+                  itemCount: searchResult.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) => FreeInfoPage(
+                                        author: searchResult[index]['author'],
+                                        bookTitle: searchResult[index]
+                                            ['bookTitle'],
+                                        description: searchResult[index]
+                                            ['description'],
+                                        img: searchResult[index]['img'],
+                                        pages: searchResult[index]['pages'],
+                                        isbn: searchResult[index]['isbn'],
+                                        publisher: searchResult[index]
+                                            ['publisher'],
+                                        pdfBook: searchResult[index]['pdfBook'],
+                                      )));
+                        });
+                      },
+                      child: ListTile(
+                        selectedTileColor: Colors.grey,
+                        leading: Image.network(searchResult[index]['img']),
+                        title: Text(
+                          searchResult[index]["bookTitle"],
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 100, 85, 105),
+                            fontWeight: FontWeight.bold,
+                          ),
+                          softWrap: true,
+                        ),
+                        subtitle: Text(
+                          searchResult[index]["publisher"],
+                          style: GoogleFonts.poppins(
+                            color: Colors.black,
+                            fontSize: 16,
+                          ),
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.navigate_next,
+                            size: 30,
+                          ),
+                        ),
+                      ),
+                    );
+                  }))
+        ],
       ),
     );
   }

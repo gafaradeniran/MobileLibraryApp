@@ -8,6 +8,8 @@ import 'package:mylibrary/bookWidgets/general_books.dart';
 import 'package:mylibrary/bookWidgets/scienceBooks.dart';
 import 'package:mylibrary/screens/homeScreen.dart';
 
+import '../classes/search_widget.dart';
+
 class LibraryBooks extends StatefulWidget {
   const LibraryBooks({Key? key}) : super(key: key);
 
@@ -79,8 +81,8 @@ class _LibraryBooksState extends State<LibraryBooks>
             IconButton(
               icon: const Icon(Icons.search_outlined),
               onPressed: () {
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (_) => const SearchField()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const SearchField()));
               },
             ),
             StreamBuilder<Object>(
@@ -89,10 +91,10 @@ class _LibraryBooksState extends State<LibraryBooks>
                   return CircleAvatar(
                     radius: 18,
                     backgroundImage: profilePic == null
-                                  ? null
-                                  : NetworkImage(
-                                      profilePic, 
-                                    ),
+                        ? null
+                        : NetworkImage(
+                            profilePic,
+                          ),
                   );
                 }),
             const SizedBox(width: 12),
@@ -133,20 +135,17 @@ class _LibraryBooksState extends State<LibraryBooks>
                       topRight: Radius.circular(25)),
                 ),
                 child: SizedBox(
-                  
                   height: MediaQuery.of(context).size.height,
-                  child:  TabBarView(
-                        controller: _tabController,
-                        physics: const ScrollPhysics(),
-                        children: const [
-                          // AllBooks(),
-                          GeneralBooks(),
-                          ScienceBooks(),
-                          ArtBooks(),
-                          CommercialBooks(),
-                        ],
-                      
-                    
+                  child: TabBarView(
+                    controller: _tabController,
+                    physics: const ScrollPhysics(),
+                    children: const [
+                      // AllBooks(),
+                      GeneralBooks(),
+                      ScienceBooks(),
+                      ArtBooks(),
+                      CommercialBooks(),
+                    ],
                   ),
                 )),
           ),

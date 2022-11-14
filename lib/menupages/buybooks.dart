@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mylibrary/classes/premium_search_widget.dart';
 import 'package:mylibrary/classes/search_widget.dart';
 import 'package:mylibrary/innerPages/info_page.dart';
 
@@ -32,12 +33,20 @@ class _BookShopState extends State<BookShop> {
       },
       child: Scaffold(
         appBar: AppBar(
-          // title: Text('Our BookStore',
-          //     style: GoogleFonts.lobster(color: Colors.purple, fontSize: 18)),
-          actions: const [
-            Expanded(child: SearchField()),
+          title: Text('Our BookStore',
+              style: GoogleFonts.lobster(color: Colors.white54, fontSize: 20)),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search_outlined),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const BookShopSearch()));
+              },
+            ),
           ],
-          // elevation: 0,
+          elevation: 0,
+          backgroundColor: Colors.black45,
+          automaticallyImplyLeading: false,
         ),
         body: SingleChildScrollView(
           child: Column(
